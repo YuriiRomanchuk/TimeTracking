@@ -1,4 +1,4 @@
-package com.timeTracking.util;
+package com.time.tracking.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
