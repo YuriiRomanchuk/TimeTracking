@@ -9,7 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 @InitializeComponent
 public class UserDtoConverter implements Converter<HttpServletRequest, UserDto> {
     @Override
-    public UserDto convert(HttpServletRequest object) throws Exception {
-        return null;
+    public UserDto convert(HttpServletRequest request) throws Exception {
+        UserDto userDto = new UserDto();
+        userDto.setLogin(request.getParameter("login"));
+        userDto.setPassword(request.getParameter("password"));
+        userDto.setFullName(request.getParameter("lastName"));
+        userDto.setEmail(request.getParameter("email"));
+        userDto.setPhone(request.getParameter("phone"));
+        return userDto;
     }
 }

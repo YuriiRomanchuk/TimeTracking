@@ -64,7 +64,10 @@ public class Reflection {
         for (Method declaredMethod : type.getDeclaredMethods()) {
             methodsMap.put(declaredMethod, ((A) Arrays.stream(declaredMethod.getDeclaredAnnotations()).filter(annotation -> annotationType.isAssignableFrom(annotation.annotationType())).findFirst().orElse(null)));
         }
-        return methodsMap;
+
+        return methodsMap.entrySet()
+                .stream()
+                .filter(e -> e.getValue() != null).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
 

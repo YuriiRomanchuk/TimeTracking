@@ -35,7 +35,7 @@ public class RequestResolver {
 
         for (Controller controller : controllers) {
             Reflection.receiveAnnotatedMethods(controller.getClass(), GetMessage.class).forEach((method, path) -> getControllers.put(path.value(), request -> prepareMethodController(request, controller, method, converters)));
-     /*       Reflection.receiveAnnotatedMethods(controller.getClass(), PostMessage.class).forEach((method, path) -> postControllers.put(path.value(), request -> prepareMethodController(request, controller, method, converters)))*/;
+            Reflection.receiveAnnotatedMethods(controller.getClass(), PostMessage.class).forEach((method, path) -> postControllers.put(path.value(), request -> prepareMethodController(request, controller, method, converters)));
         }
     }
 
@@ -44,7 +44,8 @@ public class RequestResolver {
             List<Object> arguments = new ArrayList<>();
             for (Parameter parameter : method.getParameters()) {
                 for (Converter converter : converters) {
-                    if (converter.getClass().isAssignableFrom(parameter.getType())) {
+                    Method currentMethod = Arrays.stream(converter.getClass().getDeclaredMethods()).findFirst().orElse(null);
+                    if (currentMethod != null && currentMethod.getReturnType().isAssignableFrom(parameter.getType())) {
                         arguments.add(converter.convert(request));
                     }
                 }

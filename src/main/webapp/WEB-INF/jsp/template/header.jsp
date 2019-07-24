@@ -67,19 +67,18 @@
 
         <form class="form-inline mt-2 mt-md-0" style="
                 margin-bottom: 0px;">
-
-            <c:choose>
-                <c:when test="${role eq 'UNKNOWN'}">
+            <%--<c:choose>
+                <c:when test="${role eq 'UNKNOWN'}">--%>
                     <a href="registration-form" class="btn btn-outline-success my-2 my-sm-0" role="button"><fmt:message
                             key="local.registration"/></a>
                     <a href="login" class="btn btn-outline-success my-2 my-sm-0" role="button"><fmt:message
                             key="local.log.in"/></a>
-                </c:when>
+         <%--       </c:when>
                 <c:otherwise>
                     <a href="logout" class="btn btn-outline-success my-2 my-sm-0" role="button"><fmt:message
                             key="local.logout"/></a>
                 </c:otherwise>
-            </c:choose>
+            </c:choose>--%>
 
         </form>
     </div>
