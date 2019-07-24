@@ -29,6 +29,7 @@ public class RequestResolver {
 
     public RequestResolver(ComponentInitializer ComponentInitializer) {
 
+        //TODO: talk to Jo and rebuild
         List<Controller> controllers = ComponentInitializer.receiveObjectsByType(Controller.class);
         List<Converter> converters = ComponentInitializer.receiveObjectsByType(Converter.class);
 
