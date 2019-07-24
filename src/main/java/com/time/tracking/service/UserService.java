@@ -1,4 +1,4 @@
-package com.timeTracking.service;
+package com.time.tracking.service;
 
 public class UserService {
 

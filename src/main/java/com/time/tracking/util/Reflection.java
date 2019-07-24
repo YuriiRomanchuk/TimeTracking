@@ -1,7 +1,8 @@
-package com.timeTracking.util;
+package com.time.tracking.util;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -55,4 +56,15 @@ public class Reflection {
         }
         return classes;
     }
+
+    public static <A extends Annotation> Map<Method, A> receiveAnnotatedMethods(Class type, Class<A> annotationType) {
+
+        Map<Method, A> methodsMap = new HashMap<>();
+
+        for (Method declaredMethod : type.getDeclaredMethods()) {
+            methodsMap.put(declaredMethod, ((A) Arrays.stream(declaredMethod.getDeclaredAnnotations()).filter(annotation -> annotationType.isAssignableFrom(annotation.annotationType())).findFirst().orElse(null)));
+        }
+        return methodsMap;
+    }
 }
+

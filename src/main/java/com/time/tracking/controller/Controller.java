@@ -1,4 +1,4 @@
-package com.timeTracking.controller;
+package com.time.tracking.controller;
 
 public interface Controller {
 }

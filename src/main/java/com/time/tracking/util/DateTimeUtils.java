@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TimeConverter {
+public class DateTimeUtils {
 
     public static Date convertStringToDate(String date, String timeFormat) {
         SimpleDateFormat format = new SimpleDateFormat();

@@ -1,6 +1,6 @@
-package com.timeTracking.dao;
+package com.time.tracking.dao;
 
-import com.timeTracking.model.entity.User;
+import com.time.tracking.model.entity.User;
 
 import java.util.List;
 

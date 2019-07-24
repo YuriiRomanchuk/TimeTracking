@@ -1,8 +1,8 @@
-package com.timeTracking.config;
+package com.time.tracking.config;
 
-import com.timeTracking.config.annotation.InitializeComponent;
-import com.timeTracking.servlet.RequestResolver;
-import com.timeTracking.util.Reflection;
+import com.time.tracking.config.annotation.InitializeComponent;
+import com.time.tracking.servlet.RequestResolver;
+import com.time.tracking.util.Reflection;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -10,6 +10,7 @@ import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ComponentInitializer {
 
@@ -20,9 +21,9 @@ public class ComponentInitializer {
 
     public ComponentInitializer() {
 
-        List<Class> annotatedClasses = Reflection.receiveAnnotatedClasses("com.timeTracking", InitializeComponent.class);
+        List<Class> annotatedClasses = Reflection.receiveAnnotatedClasses("com.time.tracking", InitializeComponent.class);
         annotatedClasses.forEach(aClass -> initializedObjects.put(aClass, createObject(aClass, annotatedClasses)));
-        requestResolver = new RequestResolver(initializer);
+        requestResolver = new RequestResolver(this);
     }
 
     private Object createObject(Class aClass, List<Class> annotatedClasses) {
@@ -74,7 +75,11 @@ public class ComponentInitializer {
         return requestResolver;
     }
 
-    public <T> List<T> receiveObjectsByType() {
-        return null;
+    public <T> List<T> receiveObjectsByType(Class<T> objectType) {
+        return (List<T>) initializedObjects.entrySet()
+                .stream()
+                .filter(e -> objectType.isAssignableFrom(e.getKey()))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
     }
 }

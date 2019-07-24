@@ -1,4 +1,4 @@
-package com.timeTracking.dao;
+package com.time.tracking.dao;
 
 import java.util.List;
 

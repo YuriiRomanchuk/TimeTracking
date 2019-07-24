@@ -1,4 +1,4 @@
-package com.timeTracking.config.annotation;
+package com.time.tracking.config.annotation;
 
 import java.lang.annotation.*;
 

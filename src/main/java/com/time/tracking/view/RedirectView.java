@@ -1,4 +1,4 @@
-package view;
+package com.time.tracking.view;
 
 import java.util.Map;
 

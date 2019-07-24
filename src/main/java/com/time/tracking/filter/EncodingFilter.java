@@ -1,4 +1,4 @@
-package com.timeTracking.filter;
+package com.time.tracking.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

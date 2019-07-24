@@ -1,6 +1,6 @@
-package com.timeTracking.model.entity;
+package com.time.tracking.model.entity;
 
-import com.timeTracking.model.enums.Role;
+import com.time.tracking.model.enums.Role;
 
 import java.util.Objects;
 

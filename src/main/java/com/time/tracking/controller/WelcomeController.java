@@ -1,9 +1,9 @@
-package com.timeTracking.controller;
+package com.time.tracking.controller;
 
-import com.timeTracking.config.annotation.InitializeComponent;
-import com.timeTracking.config.annotation.GetMessage;
-import view.View;
-import view.ViewModel;
+import com.time.tracking.config.annotation.GetMessage;
+import com.time.tracking.config.annotation.InitializeComponent;
+import com.time.tracking.view.View;
+import com.time.tracking.view.ViewModel;
 
 @InitializeComponent
 public class WelcomeController implements Controller {

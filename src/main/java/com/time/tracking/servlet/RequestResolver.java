@@ -1,19 +1,23 @@
-package com.timeTracking.servlet;
+package com.time.tracking.servlet;
 
-import com.timeTracking.config.ComponentInitializer;
-import com.timeTracking.controller.Controller;
-import view.RedirectView;
-import view.View;
+import com.time.tracking.config.ComponentInitializer;
+import com.time.tracking.config.annotation.GetMessage;
+import com.time.tracking.config.annotation.PostMessage;
+import com.time.tracking.controller.Controller;
+import com.time.tracking.converter.Converter;
+import com.time.tracking.util.Reflection;
+import com.time.tracking.view.RedirectView;
+import com.time.tracking.view.View;
+import com.time.tracking.view.ViewModel;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.*;
 import java.util.function.Function;
 
 public class RequestResolver {
@@ -25,11 +29,31 @@ public class RequestResolver {
 
     public RequestResolver(ComponentInitializer ComponentInitializer) {
 
-       /* List<Controller> controllers = ComponentInitializer.receiveObjectsByType();*/
+        List<Controller> controllers = ComponentInitializer.receiveObjectsByType(Controller.class);
+        List<Converter> converters = ComponentInitializer.receiveObjectsByType(Converter.class);
 
+        for (Controller controller : controllers) {
+            Reflection.receiveAnnotatedMethods(controller.getClass(), GetMessage.class).forEach((method, path) -> getControllers.put(path.value(), request -> prepareMethodController(request, controller, method, converters)));
+     /*       Reflection.receiveAnnotatedMethods(controller.getClass(), PostMessage.class).forEach((method, path) -> postControllers.put(path.value(), request -> prepareMethodController(request, controller, method, converters)))*/;
+        }
+    }
 
-
-
+    private View prepareMethodController(HttpServletRequest request, Controller controller, Method method, List<Converter> converters) {
+        try {
+            List<Object> arguments = new ArrayList<>();
+            for (Parameter parameter : method.getParameters()) {
+                for (Converter converter : converters) {
+                    if (converter.getClass().isAssignableFrom(parameter.getType())) {
+                        arguments.add(converter.convert(request));
+                    }
+                }
+            }
+            return (View) method.invoke(controller, arguments.toArray());
+        } catch (Exception e) {
+            View view = new ViewModel("/WEB-INF/jsp/error.jsp");
+            view.addParameter("error", e);
+            return view;
+        }
     }
 
     public void resolveGetRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
