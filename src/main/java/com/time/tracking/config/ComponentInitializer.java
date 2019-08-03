@@ -82,4 +82,8 @@ public class ComponentInitializer {
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
     }
+
+    public <T> T receiveObjectByType(Class<T> objectType) {
+        return receiveObjectsByType(objectType).stream().findFirst().orElse(null);
+    }
 }

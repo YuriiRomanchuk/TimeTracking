@@ -1,10 +1,10 @@
-package com.time.tracking.model.entity;
+package com.time.tracking.model.dto.user;
 
 import com.time.tracking.model.enums.Role;
 
 import java.util.Objects;
 
-public class User {
+public class UserCreateDto implements UserDto{
 
     private int id;
     private String login;
@@ -15,6 +15,7 @@ public class User {
     private String email;
     private String phone;
     private Role role;
+
 
     public int getId() {
         return id;
@@ -28,10 +29,6 @@ public class User {
         return password;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -40,16 +37,20 @@ public class User {
         return phone;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
     public String getLastName() {
         return lastName;
     }
 
     public String getMiddleName() {
         return middleName;
-    }
-
-    public Role getRole() {
-        return role;
     }
 
     public void setId(int id) {
@@ -64,10 +65,6 @@ public class User {
         this.password = password;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -78,6 +75,10 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
@@ -92,16 +93,16 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                login.equals(user.login) &&
-                password.equals(user.password) &&
-                firstName.equals(user.firstName) &&
-                lastName.equals(user.lastName) &&
-                middleName.equals(user.middleName) &&
-                email.equals(user.email) &&
-                phone.equals(user.phone) &&
-                role == user.role;
+        UserCreateDto userCreateDto = (UserCreateDto) o;
+        return id == userCreateDto.id &&
+                Objects.equals(login, userCreateDto.login) &&
+                Objects.equals(password, userCreateDto.password) &&
+                Objects.equals(firstName, userCreateDto.firstName) &&
+                Objects.equals(lastName, userCreateDto.lastName) &&
+                Objects.equals(middleName, userCreateDto.middleName) &&
+                Objects.equals(email, userCreateDto.email) &&
+                Objects.equals(phone, userCreateDto.phone) &&
+                role == userCreateDto.role;
     }
 
     @Override

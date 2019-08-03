@@ -3,7 +3,7 @@ package com.time.tracking.controller;
 import com.time.tracking.config.annotation.GetMessage;
 import com.time.tracking.config.annotation.InitializeComponent;
 import com.time.tracking.config.annotation.PostMessage;
-import com.time.tracking.model.dto.UserDto;
+import com.time.tracking.model.dto.user.UserCreateDto;
 import com.time.tracking.service.UserService;
 import com.time.tracking.view.RedirectView;
 import com.time.tracking.view.View;
@@ -29,10 +29,10 @@ public class UserController implements Controller {
     }
 
     @PostMessage("/registration-form")
-    public View createUser(UserDto userDto) {
+    public View createUser(UserCreateDto userCreateDto) {
         View view;
         try {
-            userService.createUser(userDto);
+            userService.createUser(userCreateDto);
             view = receiveViewModel("login", "User created!");
         } catch (Exception e) {
             view = receiveViewModel("registration-form", e.getMessage());

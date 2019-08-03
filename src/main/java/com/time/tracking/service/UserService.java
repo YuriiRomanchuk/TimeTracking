@@ -2,31 +2,39 @@ package com.time.tracking.service;
 
 import com.time.tracking.config.annotation.InitializeComponent;
 import com.time.tracking.converter.entityConverter.UserConverter;
-import com.time.tracking.model.dto.UserDto;
+import com.time.tracking.model.dao.UserDao;
+import com.time.tracking.model.dto.user.UserCreateDto;
+import com.time.tracking.model.dto.user.UserDto;
 import com.time.tracking.model.entity.User;
 import com.time.tracking.model.enums.Role;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @InitializeComponent
 public class UserService {
 
+    private final UserDao userDao;
     private final UserConverter userConverter;
-    private List<User> users = new ArrayList<>();
 
-    public UserService(UserConverter userConverter) {
+    public UserService(UserDao userDao, UserConverter userConverter) {
+        this.userDao = userDao;
         this.userConverter = userConverter;
     }
 
-    public void createUser(UserDto userDto) {
-        User user = userConverter.convert(userDto);
+    public void createUser(UserCreateDto userCreateDto) {
+        User user = userConverter.convert(userCreateDto);
         user.setRole(receiveRoleForUser());
-        users.add(user);
+        userDao.createUser(user);
+    }
+
+    public Role receiveUserRole(UserDto userDto){
+        return null;
+    }
+
+    public int receiveUserId(UserDto userDto){
+        return 0;
     }
 
     private Role receiveRoleForUser() {
-        return users.size() > 0 ? Role.USER : Role.ADMIN;
+        return userDao.findAll().size() > 0 ? Role.USER : Role.ADMIN;
     }
 }
 

@@ -1,5 +1,6 @@
 package com.time.tracking.model.dao;
 
+import com.time.tracking.config.annotation.InitializeComponent;
 import com.time.tracking.util.FileReader;
 
 import java.sql.*;
@@ -10,6 +11,9 @@ import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import static com.time.tracking.util.FileReader.receiveResourceProperties;
+
+@InitializeComponent
 public class DataSource {
 
     private final String url;
@@ -21,8 +25,8 @@ public class DataSource {
     public DataSource() {
 
         //TODO: refactoring
-        properties = FileReader.receiveResourceProperties("sql/base_connection.properties");
-        queries = FileReader.receiveResourceProperties("sql/queries.properties");
+        properties = receiveResourceProperties("sql/base_connection.properties");
+        queries = receiveResourceProperties("sql/queries.properties");
 
         testConnection();
 
@@ -34,7 +38,7 @@ public class DataSource {
         implementQueries(QueryData.newBuilder().setQuery(initBdScript).build());
     }
 
-    public String receiveQueries(String propertyName) {
+    public String receiveQueryText(String propertyName) {
         return queries.getProperty(propertyName);
     }
 
@@ -51,7 +55,6 @@ public class DataSource {
     }
 
     public <T> List<T> implementQueries(List<QueryData> queriesData) {
-
         List<T> results = new ArrayList<>();
         boolean isTransactions = queriesData.size() > 1;
         try (Connection connection = receiveConnection()) {
@@ -82,11 +85,12 @@ public class DataSource {
         List<T> list = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement(queryData.getQuery(), Statement.RETURN_GENERATED_KEYS)) {
             if (queryData.getParameters() != null) {
+
                 for (Object entity : queryData.getEntities()) {
-                    queryData.getParameters().accept(entity, ps);
                     if (isBatch) {
                         ps.addBatch();
                     }
+                    queryData.getParameters().accept(entity, ps);
                 }
             }
 

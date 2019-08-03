@@ -2,13 +2,14 @@ package com.time.tracking.model.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class QueryData {
 
-    private List<?> entities;
+    private List<?> entities = new ArrayList<>();
     private String query;
     private DataSource.SqlConsumer<ResultSet> resultProcessor;
     private BiConsumer<Object, PreparedStatement> parameters;

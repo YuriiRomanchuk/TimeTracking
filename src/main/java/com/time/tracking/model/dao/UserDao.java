@@ -1,11 +1,13 @@
 package com.time.tracking.model.dao;
 
+import com.time.tracking.config.annotation.InitializeComponent;
 import com.time.tracking.converter.resultSetConverter.UserResultSetConverter;
 import com.time.tracking.model.entity.User;
 
 import java.util.List;
 import java.util.Optional;
 
+@InitializeComponent
 public class UserDao implements GenericDao<User> {
 
     private final DataSource dataSource;
@@ -30,7 +32,7 @@ public class UserDao implements GenericDao<User> {
     public List<User> findAll() {
         return dataSource.implementQueries(
                 QueryData.newBuilder()
-                        .setQuery(dataSource.receiveQueries("user.find.all"))
+                        .setQuery(dataSource.receiveQueryText("user.find.all"))
                         .setConverter(userResultSetConverter::convert)
                         .build());
     }
@@ -48,7 +50,7 @@ public class UserDao implements GenericDao<User> {
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
 
         List<User> users = dataSource.implementQueries(QueryData.newBuilder()
-                .setQuery(dataSource.receiveQueries("user.find.by.email.and.password"))
+                .setQuery(dataSource.receiveQueryText("user.find.by.email.and.password"))
                 .setConverter(userResultSetConverter::convert)
                 .setParameters(ps -> {
                     ps.setString(1, email);
@@ -62,9 +64,12 @@ public class UserDao implements GenericDao<User> {
     public void createUser(User user) {
 
         QueryData data = QueryData.newBuilder()
-                .setQuery(dataSource.receiveQueries("user.create"))
+                .setQuery(dataSource.receiveQueryText("user.create"))
+                .setEntities(user)
                 .setParameters(ps -> {
-                    ps.setString(1, user.getFullName());
+                    ps.setString(1, user.getFirstName());
+                    ps.setString(2, user.getLastName());
+                    ps.setString(3, user.getMiddleName());
                     ps.setString(4, user.getLogin());
                     ps.setString(5, user.getPassword());
                     ps.setString(6, user.getEmail());

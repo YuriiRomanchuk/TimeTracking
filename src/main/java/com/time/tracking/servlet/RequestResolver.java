@@ -27,11 +27,11 @@ public class RequestResolver {
     private Map<String, Function<HttpServletRequest, View>> getControllers = new HashMap<>();
     private Map<String, Function<HttpServletRequest, View>> postControllers = new HashMap<>();
 
-    public RequestResolver(ComponentInitializer ComponentInitializer) {
+    public RequestResolver(ComponentInitializer componentInitializer) {
 
         //TODO: talk to Jo and rebuild
-        List<Controller> controllers = ComponentInitializer.receiveObjectsByType(Controller.class);
-        List<Converter> converters = ComponentInitializer.receiveObjectsByType(Converter.class);
+        List<Controller> controllers = componentInitializer.receiveObjectsByType(Controller.class);
+        List<Converter> converters = componentInitializer.receiveObjectsByType(Converter.class);
 
         for (Controller controller : controllers) {
             Reflection.receiveAnnotatedMethods(controller.getClass(), GetMessage.class).forEach((method, path) -> getControllers.put(path.value(), request -> prepareMethodController(request, controller, method, converters)));
