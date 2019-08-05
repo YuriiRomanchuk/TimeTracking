@@ -1,7 +1,7 @@
-package com.reservation.controller.listener;
+package com.time.tracking.servlet.listener;
 
-import com.reservation.config.UserAuthorization;
-import com.reservation.model.enums.Role;
+import com.time.tracking.config.UserAuthorization;
+import com.time.tracking.model.enums.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

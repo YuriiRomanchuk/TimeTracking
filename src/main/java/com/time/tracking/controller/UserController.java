@@ -40,11 +40,26 @@ public class UserController implements Controller {
         return new RedirectView(view);
     }
 
+    @GetMessage("/admin-personal-area")
+    public View showAdminPersonalArea() {
+        View view;
+        /*  try {*/
+        view = new ViewModel("WEB-INF/jsp/admin/admin-personal-area.jsp");
+        /*   view.addParameter("roomsDto", roomService.receiveAllRoomsDto());*/
+        /*LOGGER.debug("show admin personal area");*/
+     /*   } catch (ServiceException e) {
+            view = receiveViewModel("index", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+      *//*      LOGGER.debug("Admin personal area is not shown!" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());*//*
+        }*/
+        return view;
+    }
+
     private View receiveViewModel(String path, String error) {
         View view;
         view = new ViewModel(path);
         view.addParameter("Error", error);
         return view;
     }
+
 
 }

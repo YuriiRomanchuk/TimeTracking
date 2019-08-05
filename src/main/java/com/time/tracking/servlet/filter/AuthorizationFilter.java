@@ -1,4 +1,4 @@
-package com.time.tracking.filter;
+package com.time.tracking.servlet.filter;
 
 import com.time.tracking.config.ComponentInitializer;
 import com.time.tracking.config.UserAuthorization;

@@ -1,4 +1,4 @@
-package com.reservation.exception;
+package com.time.tracking.exception;
 
 public class ServiceException extends Exception{
 

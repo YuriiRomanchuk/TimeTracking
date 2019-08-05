@@ -45,7 +45,7 @@
                 </h6>
 
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/main/admin-add-room" role="button">
+                <a class="nav-link" href="${mainPath}/main/admin-add-room" role="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="feather feather-file-text">
@@ -59,7 +59,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/main/admin-request-treatment"
+                <a class="nav-link" href="${mainPath}/main/admin-request-treatment"
                    role="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -146,7 +146,7 @@
                     </h6>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/main/user-add-request-room"
+                        <a class="nav-link" href="${mainPath}/main/user-add-request-room"
                            role="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none"
@@ -167,7 +167,7 @@
                     </h6>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/main/user-invoices" role="button">
+                        <a class="nav-link" href="${mainPath}/main/user-invoices" role="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none"
                                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -183,7 +183,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/main/user-invoices-history"
+                        <a class="nav-link" href="${mainPath}/main/user-invoices-history"
                            role="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none"

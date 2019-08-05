@@ -1,15 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<%@ page session="true" isELIgnored="false" contentType="text/html; charset=UTF-8" language="java"
-         pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
-
-<c:set var='role' value="${sessionScope['role']}"/>
+<%--<c:set var='role' value="${sessionScope['role']}"/>--%>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark sticky-top">
     <a class="navbar-brand" href="#"><fmt:message key="local.hotel"/></a>
@@ -21,16 +15,16 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <c:if test="${role eq 'UNKNOWN'}">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/main/index" role="button"> <fmt:message
+                    <a class="nav-link" href="${mainPath}/main/index" role="button"> <fmt:message
                             key="local.home"/> <span class="sr-only">(current)</span></a>
                 </c:if>
                 <c:if test="${role eq 'ADMIN'}">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/main/admin-personal-area"
+                    <a class="nav-link" href="${mainPath}/main/admin-personal-area"
                        role="button"> <fmt:message
                             key="local.home"/> <span class="sr-only">(current)</span></a>
                 </c:if>
                 <c:if test="${role eq 'USER'}">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/main/user-personal-area" role="button">
+                    <a class="nav-link" href="${mainPath}/main/user-personal-area" role="button">
                         <fmt:message
                                 key="local.home"/> <span class="sr-only">(current)</span></a>
                 </c:if>

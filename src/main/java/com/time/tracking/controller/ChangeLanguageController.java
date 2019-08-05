@@ -1,14 +1,17 @@
-package com.reservation.controller;
+package com.time.tracking.controller;
 
+import com.time.tracking.config.annotation.InitializeComponent;
+import com.time.tracking.config.annotation.PostMessage;
+import com.time.tracking.view.RedirectView;
+import com.time.tracking.view.View;
+import com.time.tracking.view.ViewModel;
 
-import com.reservation.view.RedirectViewModel;
-import com.reservation.view.View;
-import com.reservation.view.ViewModel;
+@InitializeComponent
+public class ChangeLanguageController implements Controller {
 
-public class ChangeLanguageController {
-
+    @PostMessage("/change_language")
     public View changeLanguage() {
-        return new RedirectViewModel(new ViewModel("index"));
+        return new RedirectView(new ViewModel("index"));
     }
 
 }

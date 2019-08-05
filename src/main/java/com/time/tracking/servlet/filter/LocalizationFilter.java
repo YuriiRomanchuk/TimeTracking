@@ -1,10 +1,12 @@
-package com.time.tracking.filter;
+package com.time.tracking.servlet.filter;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@WebFilter("/*")
 public class LocalizationFilter implements Filter {
 
     private final String defaultLanguage = "en";
