@@ -11,21 +11,6 @@
 
 <c:set var='role' value="${sessionScope['role']}"/>
 
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link href="dashboard.css" rel="stylesheet">
-</head>
-
-<body>
-
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark sticky-top">
     <a class="navbar-brand" href="#"><fmt:message key="local.hotel"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -40,12 +25,14 @@
                             key="local.home"/> <span class="sr-only">(current)</span></a>
                 </c:if>
                 <c:if test="${role eq 'ADMIN'}">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/main/admin-personal-area" role="button"> <fmt:message
+                    <a class="nav-link" href="${pageContext.request.contextPath}/main/admin-personal-area"
+                       role="button"> <fmt:message
                             key="local.home"/> <span class="sr-only">(current)</span></a>
                 </c:if>
                 <c:if test="${role eq 'USER'}">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/main/user-personal-area" role="button"> <fmt:message
-                            key="local.home"/> <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/main/user-personal-area" role="button">
+                        <fmt:message
+                                key="local.home"/> <span class="sr-only">(current)</span></a>
                 </c:if>
             </li>
         </ul>
@@ -67,22 +54,18 @@
 
         <form class="form-inline mt-2 mt-md-0" style="
                 margin-bottom: 0px;">
-            <%--<c:choose>
-                <c:when test="${role eq 'UNKNOWN'}">--%>
+            <c:choose>
+                <c:when test="${role eq 'UNKNOWN'}">
                     <a href="registration-form" class="btn btn-outline-success my-2 my-sm-0" role="button"><fmt:message
                             key="local.registration"/></a>
                     <a href="login" class="btn btn-outline-success my-2 my-sm-0" role="button"><fmt:message
                             key="local.log.in"/></a>
-         <%--       </c:when>
+                </c:when>
                 <c:otherwise>
                     <a href="logout" class="btn btn-outline-success my-2 my-sm-0" role="button"><fmt:message
                             key="local.logout"/></a>
                 </c:otherwise>
-            </c:choose>--%>
-
+            </c:choose>
         </form>
     </div>
 </nav>
-
-</body>
-</html>

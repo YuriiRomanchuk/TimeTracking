@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +20,7 @@ import java.util.Map;
 public class AuthorizationFilter implements Filter {
 
     private static final Logger LOGGER = LogManager.getLogger(AuthorizationFilter.class);
-    private final String loginPageName = "login";
-    private final String logoutPageName = "logout";
     private HttpServletRequest httpRequest;
-    private HttpServletResponse httpResponse;
     private String sessionId;
     private Map<String, UserAuthorization> usersAuthorization;
     private UserLoginDtoConverter userLoginDtoConverter;
@@ -45,12 +41,11 @@ public class AuthorizationFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         httpRequest = (HttpServletRequest) servletRequest;
-        httpResponse = (HttpServletResponse) servletResponse;
         sessionId = httpRequest.getSession().getId();
         usersAuthorization = (Map<String, UserAuthorization>) httpRequest.getServletContext().getAttribute("usersAuthorization");
 
         if (httpRequest.getSession().getAttribute("role") == null) {
-            SetSessionRole(Role.UNKNOWN);
+            setSessionAttribute("role", Role.UNKNOWN);
         }
 
         authorizationUser();
@@ -59,14 +54,14 @@ public class AuthorizationFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private void SetSessionRole(Role role) {
-        httpRequest.getSession().setAttribute("role", role);
+    private <T> void setSessionAttribute(String name, T value) {
+        httpRequest.getSession().setAttribute(name, value);
     }
 
     private void authorizationUser() {
 
         String email = httpRequest.getParameter("email");
-
+        String loginPageName = "login";
         if (httpRequest.getRequestURI().contains(loginPageName) && (email != null)) {
 
             String foreignUserSession = userSessionOtherSession(email);
@@ -80,9 +75,10 @@ public class AuthorizationFilter implements Filter {
     }
 
     private void logout() {
+        String logoutPageName = "logout";
         if (httpRequest.getRequestURI().contains(logoutPageName)) {
             removeUserAuthorization(sessionId);
-            httpRequest.getSession().setAttribute("role", Role.UNKNOWN);
+            setSessionAttribute("role", Role.UNKNOWN);
             LOGGER.debug("user logout " + sessionId);
         }
     }
@@ -114,9 +110,9 @@ public class AuthorizationFilter implements Filter {
             userAuthorization.setEmail(email);
             userAuthorization.setRole(role);
             usersAuthorization.put(httpRequest.getSession().getId(), userAuthorization);
-            httpRequest.getSession().setAttribute("role", role);
-            httpRequest.getSession().setAttribute("user_id", userId);
-            LOGGER.debug("user login: " + userId + " session: " + userId);
+            setSessionAttribute("role", role);
+            setSessionAttribute("user_id", userId);
+            LOGGER.debug("user login: " + userId + " session: " + sessionId);
         }
     }
 
