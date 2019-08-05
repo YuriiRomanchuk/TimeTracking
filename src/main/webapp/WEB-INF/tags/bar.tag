@@ -45,7 +45,7 @@
                 </h6>
 
             <li class="nav-item">
-                <a class="nav-link" href="${mainPath}/main/admin-add-room" role="button">
+                <a class="nav-link" href="${mainPath}/main/admin-activity" role="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="feather feather-file-text">
@@ -55,7 +55,7 @@
                         <line x1="16" y1="17" x2="8" y2="17"></line>
                         <polyline points="10 9 9 9 8 9"></polyline>
                     </svg>
-                    <fmt:message key="local.admin.bar.add.room"/>
+                    <fmt:message key="local.admin.bar.add.activity"/>
                 </a>
             </li>
             <li class="nav-item">

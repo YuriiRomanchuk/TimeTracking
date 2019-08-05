@@ -11,3 +11,10 @@ create table if not exists users
   role        varchar(45)  NOT NULL,
   PRIMARY KEY (id)
 );
+
+create table if not exists activities
+(
+  id   SERIAL       NOT NULL,
+  name varchar(250) NOT NULL,
+  PRIMARY KEY (id)
+);
