@@ -85,7 +85,6 @@ public class DataSource {
         List<T> list = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement(queryData.getQuery(), Statement.RETURN_GENERATED_KEYS)) {
             if (queryData.getParameters() != null) {
-
                 for (Object entity : queryData.getEntities()) {
                     if (isBatch) {
                         ps.addBatch();

@@ -4,12 +4,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class QueryData {
 
-    private List<?> entities = new ArrayList<>();
+    private List<?> entities = Collections.singletonList(null);
     private String query;
     private DataSource.SqlConsumer<ResultSet> resultProcessor;
     private BiConsumer<Object, PreparedStatement> parameters;

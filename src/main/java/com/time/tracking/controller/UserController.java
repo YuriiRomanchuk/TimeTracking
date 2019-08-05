@@ -3,7 +3,11 @@ package com.time.tracking.controller;
 import com.time.tracking.config.annotation.GetMessage;
 import com.time.tracking.config.annotation.InitializeComponent;
 import com.time.tracking.config.annotation.PostMessage;
+import com.time.tracking.exception.ServiceException;
 import com.time.tracking.model.dto.user.UserCreateDto;
+import com.time.tracking.model.dto.user.UserLoginDto;
+import com.time.tracking.model.entity.User;
+import com.time.tracking.model.enums.Role;
 import com.time.tracking.service.UserService;
 import com.time.tracking.view.RedirectView;
 import com.time.tracking.view.View;
@@ -27,6 +31,27 @@ public class UserController implements Controller {
     public View showUserLoginPage() {
         return new ViewModel("WEB-INF/jsp/login.jsp");
     }
+
+    @GetMessage("/logout")
+    public View logout() {
+        /*  LOGGER.debug("User logout");*/
+        return new RedirectView(new ViewModel("index"));
+    }
+
+    @PostMessage("/login")
+    public View loginUser(UserLoginDto userLoginDto) {
+        View view;
+        try {
+            /*view = validateLoginUser(userDto);*/
+            /*  LOGGER.debug("User login");*/
+            User user = userService.loginUser(userLoginDto);
+            view = receiveViewModel(user.getRole().equals(Role.ADMIN) ? "admin-personal-area" : "user-personal-area", "");
+        } catch (ServiceException e) {
+            view = receiveViewModel("login", e.getMessage());
+        }
+        return new RedirectView(view);
+    }
+
 
     @PostMessage("/registration-form")
     public View createUser(UserCreateDto userCreateDto) {
