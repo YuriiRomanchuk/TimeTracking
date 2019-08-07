@@ -2,7 +2,7 @@ package com.time.tracking.model.dto.user;
 
 import java.util.Objects;
 
-public class UserLoginDto implements UserDto {
+public class UserLoginDto {
 
     private String password;
     private String email;

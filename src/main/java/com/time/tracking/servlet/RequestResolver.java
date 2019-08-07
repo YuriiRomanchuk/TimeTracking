@@ -44,7 +44,9 @@ public class RequestResolver {
             List<Object> arguments = new ArrayList<>();
             for (Parameter parameter : method.getParameters()) {
                 for (Converter converter : converters) {
-                    Method currentMethod = Arrays.stream(converter.getClass().getDeclaredMethods()).findFirst().orElse(null);
+                    Method currentMethod = Arrays.stream(converter.getClass().getDeclaredMethods())
+                            .filter(m -> !m.getReturnType().isAssignableFrom(Object.class))
+                            .findFirst().orElse(null);
                     if (currentMethod != null && currentMethod.getReturnType().isAssignableFrom(parameter.getType())) {
                         arguments.add(converter.convert(request));
                     }

@@ -127,7 +127,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" role="button">
+                        <a class="nav-link" href="${mainPath}/main/user-add-request-activity" role="button">
                                 <%--                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>--%>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none"
@@ -138,10 +138,10 @@
                                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
-                            <fmt:message key="local.user.bar.PersonalData"/>
+                            <fmt:message key="local.user.bar.add.request.activity"/>
                         </a>
                     </li>
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+    <%--                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span><fmt:message key="local.user.bar.request.room"/></span>
                     </h6>
 
@@ -196,7 +196,7 @@
                                 <polyline points="10 9 9 9 8 9"></polyline>
                             </svg>
                             <fmt:message key="local.user.bar.invoice.history"/>
-                        </a>
+                        </a>--%>
                     </li>
                 </ul>
             </c:if>

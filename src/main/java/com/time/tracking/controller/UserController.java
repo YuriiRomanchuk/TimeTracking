@@ -79,6 +79,20 @@ public class UserController implements Controller {
         return view;
     }
 
+    @GetMessage("/user-personal-area")
+    public View showUserPersonalArea() {
+        View view;
+        /*  try {*/
+        view = new ViewModel("WEB-INF/jsp/user/user-personal-area.jsp");
+        /*   view.addParameter("roomsDto", roomService.receiveAllRoomsDto());*/
+        /*LOGGER.debug("show admin personal area");*/
+     /*   } catch (ServiceException e) {
+            view = receiveViewModel("index", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+      *//*      LOGGER.debug("Admin personal area is not shown!" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());*//*
+        }*/
+        return view;
+    }
+
     private View receiveViewModel(String path, String error) {
         View view;
         view = new ViewModel(path);

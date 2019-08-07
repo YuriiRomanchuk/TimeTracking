@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ attribute name="title"%>
+<%@ attribute name="title" %>
 <%@ attribute name="datePicker" type="java.lang.Boolean" %>
 <%@ attribute name="dataTable" %>
 <%@ attribute name="showBar" type="java.lang.Boolean" %>

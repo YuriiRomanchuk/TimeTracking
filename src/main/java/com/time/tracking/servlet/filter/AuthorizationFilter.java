@@ -105,7 +105,6 @@ public class AuthorizationFilter implements Filter {
         Role role = userService.receiveUserRole(userLoginDto);
         if (!role.equals(Role.UNKNOWN)) {
             int userId = userService.receiveUserId(userLoginDto);
-
             UserAuthorization userAuthorization = new UserAuthorization();
             userAuthorization.setEmail(email);
             userAuthorization.setRole(role);

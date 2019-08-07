@@ -48,7 +48,6 @@ public class UserDao implements GenericDao<User> {
     }
 
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
-
         List<User> users = dataSource.implementQueries(QueryData.newBuilder()
                 .setQuery(dataSource.receiveQueryText("user.find.by.email.and.password"))
                 .setConverter(userResultSetConverter::convert)
@@ -62,7 +61,6 @@ public class UserDao implements GenericDao<User> {
     }
 
     public void createUser(User user) {
-
         QueryData data = QueryData.newBuilder()
                 .setQuery(dataSource.receiveQueryText("user.create"))
                 .setEntities(user)

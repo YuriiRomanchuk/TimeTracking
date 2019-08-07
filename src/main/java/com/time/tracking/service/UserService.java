@@ -1,11 +1,10 @@
 package com.time.tracking.service;
 
 import com.time.tracking.config.annotation.InitializeComponent;
-import com.time.tracking.converter.entityConverter.UserConverter;
+import com.time.tracking.converter.entityConverter.UserCreateConverter;
 import com.time.tracking.exception.ServiceException;
 import com.time.tracking.model.dao.UserDao;
 import com.time.tracking.model.dto.user.UserCreateDto;
-import com.time.tracking.model.dto.user.UserDto;
 import com.time.tracking.model.dto.user.UserLoginDto;
 import com.time.tracking.model.entity.User;
 import com.time.tracking.model.enums.Role;
@@ -14,15 +13,15 @@ import com.time.tracking.model.enums.Role;
 public class UserService {
 
     private final UserDao userDao;
-    private final UserConverter userConverter;
+    private final UserCreateConverter userCreateConverter;
 
-    public UserService(UserDao userDao, UserConverter userConverter) {
+    public UserService(UserDao userDao, UserCreateConverter userCreateConverter) {
         this.userDao = userDao;
-        this.userConverter = userConverter;
+        this.userCreateConverter = userCreateConverter;
     }
 
     public void createUser(UserCreateDto userCreateDto) {
-        User user = userConverter.convert(userCreateDto);
+        User user = userCreateConverter.convert(userCreateDto);
         user.setRole(receiveRoleForUser());
         userDao.createUser(user);
     }
@@ -31,8 +30,8 @@ public class UserService {
         return userDao.findUserByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword()).map(User::getRole).orElse(Role.UNKNOWN);
     }
 
-    public int receiveUserId(UserDto userDto) {
-        return 0;
+    public int receiveUserId(UserLoginDto userLoginDto) {
+        return userDao.findUserByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword()).map(User::getId).orElse(null);
     }
 
     private Role receiveRoleForUser() {

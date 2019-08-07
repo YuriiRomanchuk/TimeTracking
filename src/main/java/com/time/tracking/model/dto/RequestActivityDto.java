@@ -1,31 +1,31 @@
-package com.time.tracking.model.entity;
+package com.time.tracking.model.dto;
 
+import com.time.tracking.model.dto.user.UserDto;
 import com.time.tracking.model.enums.RequestAction;
 import com.time.tracking.model.enums.RequestStatus;
 
 import java.util.Date;
 import java.util.Objects;
 
-public class RequestActivity {
+public class RequestActivityDto {
 
     private int id;
-    private User user;
-    private Activity activity;
+    private UserDto userDto;
+    private ActivityDto activityDto;
     private Date dateReview;
     private RequestAction requestAction;
     private RequestStatus requestStatus;
-
 
     public int getId() {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public Activity getActivity() {
-        return activity;
+    public ActivityDto getActivityDto() {
+        return activityDto;
     }
 
     public Date getDateReview() {
@@ -44,12 +44,12 @@ public class RequestActivity {
         this.id = id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 
-    public void setActivity(Activity activity) {
-        this.activity = activity;
+    public void setActivityDto(ActivityDto activityDto) {
+        this.activityDto = activityDto;
     }
 
     public void setDateReview(Date dateReview) {
@@ -68,10 +68,10 @@ public class RequestActivity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RequestActivity that = (RequestActivity) o;
+        RequestActivityDto that = (RequestActivityDto) o;
         return id == that.id &&
-                Objects.equals(user, that.user) &&
-                Objects.equals(activity, that.activity) &&
+                Objects.equals(userDto, that.userDto) &&
+                Objects.equals(activityDto, that.activityDto) &&
                 Objects.equals(dateReview, that.dateReview) &&
                 requestAction == that.requestAction &&
                 requestStatus == that.requestStatus;
@@ -79,6 +79,6 @@ public class RequestActivity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, activity, dateReview, requestAction, requestStatus);
+        return Objects.hash(id, userDto, activityDto, dateReview, requestAction, requestStatus);
     }
 }

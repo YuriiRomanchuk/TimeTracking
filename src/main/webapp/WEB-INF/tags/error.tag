@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var='error' value="${Error}"/>
+
 <div class="col w-100">
     <c:if test="${error !=null}">
         <div id="my-alert" class="alert alert-danger alert-dismissible fade show w-100" role="alert">

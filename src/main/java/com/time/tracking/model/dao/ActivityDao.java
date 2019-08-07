@@ -3,6 +3,7 @@ package com.time.tracking.model.dao;
 import com.time.tracking.config.annotation.InitializeComponent;
 import com.time.tracking.converter.resultSetConverter.ActivityResultSetConverter;
 import com.time.tracking.model.entity.Activity;
+import com.time.tracking.model.enums.RequestStatus;
 
 import java.util.List;
 
@@ -54,4 +55,17 @@ public class ActivityDao implements GenericDao<Activity> {
     public void delete(int id) {
 
     }
+
+    public List<Activity> receiveFreeActivitiesForUser(int userId, RequestStatus status) {
+        return dataSource.implementQueries(
+                QueryData.newBuilder()
+                        .setQuery(dataSource.receiveQueryText("activity.find.free"))
+                        .setParameters(ps -> {
+                            ps.setInt(1, userId);
+                            ps.setString(2, status.toString());
+                        })
+                        .setConverter(activityResultSetConverter::convert)
+                        .build());
+    }
 }
+

@@ -4,7 +4,7 @@ import com.time.tracking.model.enums.Role;
 
 import java.util.Objects;
 
-public class UserCreateDto implements UserDto{
+public class UserCreateDto{
 
     private int id;
     private String login;
