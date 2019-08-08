@@ -30,6 +30,7 @@ public class RequestActivityDao implements GenericDao<RequestActivity> {
                     ps.setInt(2, requestActivity.getActivity().getId());
                     ps.setString(3, requestActivity.getRequestAction().toString());
                     ps.setString(4, requestActivity.getRequestStatus().toString());
+                    ps.setTimestamp(5, new Timestamp(requestActivity.getDateReview().getTime()));
                 })
                 .setResultProcessor(r -> requestActivity.setId(r.getInt(1)))
                 .build();

@@ -5,6 +5,7 @@ import com.time.tracking.converter.Converter;
 import com.time.tracking.model.dto.RequestActivityDto;
 import com.time.tracking.model.enums.RequestAction;
 import com.time.tracking.model.enums.RequestStatus;
+import com.time.tracking.util.DateTimeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,10 +34,11 @@ public class RequestActivityDtoConverter implements Converter<HttpServletRequest
         if (numberOfLine != null) {
             requestActivityDto.setId(Integer.valueOf(request.getParameter("request_id_" + numberOfLine).trim()));
         } else {
-            requestActivityDto.setUserDto(userDtoConverter.convertFromRequestForUserId(request));
+            requestActivityDto.setUserDto(userDtoConverter.convert(request));
             requestActivityDto.setActivityDto(activityDtoConverter.convert(request));
             requestActivityDto.setRequestAction(RequestAction.valueOf(request.getParameter("requestAction")));
             requestActivityDto.setRequestStatus(RequestStatus.NEW);
+            requestActivityDto.setDateReview(DateTimeUtils.parseDate("0000-00-00"));
         }
         LOGGER.debug("Request activity dto is converted");
         return requestActivityDto;

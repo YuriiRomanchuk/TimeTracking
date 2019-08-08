@@ -56,13 +56,12 @@ public class ActivityDao implements GenericDao<Activity> {
 
     }
 
-    public List<Activity> receiveFreeActivitiesForUser(int userId, RequestStatus status) {
+    public List<Activity> receiveFreeActivitiesForUser(int userId) {
         return dataSource.implementQueries(
                 QueryData.newBuilder()
                         .setQuery(dataSource.receiveQueryText("activity.find.free"))
                         .setParameters(ps -> {
                             ps.setInt(1, userId);
-                            ps.setString(2, status.toString());
                         })
                         .setConverter(activityResultSetConverter::convert)
                         .build());
