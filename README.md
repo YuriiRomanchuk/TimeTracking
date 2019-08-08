@@ -25,6 +25,6 @@ Admin
 7. Зайти под пользователем с ролью Admin в пункт Approve request
 8. Утвердить или отклонить созданную пользователем User заявку нажав кнопку Approve/Reject
 User
-9.  Зайти под под пользователем с ролью User в раздел Add activity session
+9.  Зайти под под пользователем с ролью User в раздел Add activity session.
 
 
