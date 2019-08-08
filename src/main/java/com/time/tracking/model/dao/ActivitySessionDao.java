@@ -1,20 +1,22 @@
 package com.time.tracking.model.dao;
 
 import com.time.tracking.config.annotation.InitializeComponent;
-import com.time.tracking.converter.dtoConverter.ActivitySessionDtoFromEntityConverter;
+import com.time.tracking.converter.resultSetConverter.ActivitySessionResultSetConverter;
 import com.time.tracking.model.entity.ActivitySession;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @InitializeComponent
 public class ActivitySessionDao implements GenericDao<ActivitySession> {
 
     private final DataSource dataSource;
-    private final ActivitySessionDtoFromEntityConverter activitySessionDtoFromEntityConverter;
+    private final ActivitySessionResultSetConverter activitySessionResultSetConverter;
 
-    public ActivitySessionDao(DataSource dataSource, ActivitySessionDtoFromEntityConverter activitySessionDtoFromEntityConverter) {
+    public ActivitySessionDao(DataSource dataSource, ActivitySessionResultSetConverter activitySessionResultSetConverter) {
         this.dataSource = dataSource;
-        this.activitySessionDtoFromEntityConverter = activitySessionDtoFromEntityConverter;
+        this.activitySessionResultSetConverter = activitySessionResultSetConverter;
     }
 
     @Override
@@ -26,6 +28,7 @@ public class ActivitySessionDao implements GenericDao<ActivitySession> {
                     ps.setInt(1, activitySession.getUser().getId());
                     ps.setInt(2, activitySession.getActivity().getId());
                     ps.setInt(3, activitySession.getTimeSpent());
+                    ps.setTimestamp(4, new Timestamp(activitySession.getCurrentDate().getTime()));
                 })
                 .setResultProcessor(r -> activitySession.setId(r.getInt(1)))
                 .build();
@@ -51,5 +54,17 @@ public class ActivitySessionDao implements GenericDao<ActivitySession> {
     @Override
     public void delete(int id) {
 
+    }
+
+    public List<ActivitySession> findByIdTodayActivities(int user_id, Date beginOfDay, Date endOfDay) {
+        return dataSource.implementQueries(QueryData.newBuilder()
+                .setQuery(dataSource.receiveQueryText("activity.session.find.today.activities"))
+                .setParameters(ps -> {
+                    ps.setInt(1, user_id);
+                    ps.setTimestamp(2, new Timestamp(beginOfDay.getTime()));
+                    ps.setTimestamp(3, new Timestamp(endOfDay.getTime()));
+                })
+                .setConverter(activitySessionResultSetConverter::convert)
+                .build());
     }
 }

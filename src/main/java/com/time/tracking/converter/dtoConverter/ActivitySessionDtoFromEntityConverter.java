@@ -26,6 +26,7 @@ public class ActivitySessionDtoFromEntityConverter implements Converter<Activity
         activitySessionDto.setActivityDto(activityDtoFromEntityConverter.convert(activitySession.getActivity()));
         activitySessionDto.setUserDto(userDtoFromEntityConverter.convert(activitySession.getUser()));
         activitySessionDto.setTimeSpent(activitySession.getTimeSpent());
+        activitySessionDto.setCurrentDate(activitySession.getCurrentDate());
         LOGGER.debug("Activity session dto is converted from entity!");
         return activitySessionDto;
     }

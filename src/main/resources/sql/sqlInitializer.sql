@@ -37,9 +37,10 @@ create table if not exists request_activities
 create table if not exists activities_session
 (
   id          SERIAL NOT NULL,
+  date        timestamp,
   user_id     int    NOT NULL,
   activity_id int    NOT NULL,
-  time_spent   int    NOT NULL,
+  time_spent  int    NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT request_activities_user_id_fkey FOREIGN KEY (user_id)
     REFERENCES users (id),

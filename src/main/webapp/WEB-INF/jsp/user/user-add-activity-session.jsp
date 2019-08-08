@@ -10,9 +10,7 @@
 <fmt:message key="local.login" bundle="${messages}" var="myVar"/>
 
 <tag:page showBar="true" needValidation="true" title="Activity session">
-
     <form id="form" method="post" action="user-add-activity-session" class="needs-validation" novalidate>
-
         <label for="userId"><fmt:message key="local.user.activity.session.user.id" bundle="${messages}"/></label>
         <input required type="text" class="form-control" id="userId" name="userId" size="1"
                readonly

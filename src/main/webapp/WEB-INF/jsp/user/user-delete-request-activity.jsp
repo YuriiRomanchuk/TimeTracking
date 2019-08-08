@@ -10,9 +10,7 @@
 <fmt:message key="local.login" bundle="${messages}" var="myVar"/>
 
 <tag:page showBar="true" needValidation="true" title="Request activity(delete)">
-
     <form id="form" method="post" action="user-add-request-activity" class="needs-validation" novalidate>
-
         <label for="userId"><fmt:message key="local.user.request.activity.user.id" bundle="${messages}"/></label>
         <input required type="text" class="form-control" id="userId" name="userId" size="1"
                readonly

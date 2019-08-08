@@ -1,5 +1,6 @@
 package com.time.tracking.model.entity;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class ActivitySession {
@@ -7,6 +8,7 @@ public class ActivitySession {
     private int id;
     private Activity activity;
     private User user;
+    private Date currentDate;
     private int timeSpent;
 
     public int getId() {
@@ -19,6 +21,10 @@ public class ActivitySession {
 
     public User getUser() {
         return user;
+    }
+
+    public Date getCurrentDate() {
+        return currentDate;
     }
 
     public int getTimeSpent() {
@@ -37,6 +43,10 @@ public class ActivitySession {
         this.user = user;
     }
 
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
+    }
+
     public void setTimeSpent(int timeSpent) {
         this.timeSpent = timeSpent;
     }
@@ -49,11 +59,12 @@ public class ActivitySession {
         return id == that.id &&
                 timeSpent == that.timeSpent &&
                 Objects.equals(activity, that.activity) &&
-                Objects.equals(user, that.user);
+                Objects.equals(user, that.user) &&
+                Objects.equals(currentDate, that.currentDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, activity, user, timeSpent);
+        return Objects.hash(id, activity, user, currentDate, timeSpent);
     }
 }

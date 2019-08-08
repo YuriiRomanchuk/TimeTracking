@@ -1,5 +1,6 @@
 package com.time.tracking.converter.resultSetConverter;
 
+import com.time.tracking.config.annotation.InitializeComponent;
 import com.time.tracking.converter.Converter;
 import com.time.tracking.model.entity.ActivitySession;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@InitializeComponent
 public class ActivitySessionResultSetConverter implements Converter<ResultSet, ActivitySession> {
 
     private static final Logger LOGGER = LogManager.getLogger(ActivitySessionResultSetConverter.class);
@@ -26,6 +28,7 @@ public class ActivitySessionResultSetConverter implements Converter<ResultSet, A
         activitySession.setTimeSpent(resultSet.getInt("time_spent"));
         activitySession.setActivity(activityResultSetConverter.convert(resultSet));
         activitySession.setUser(userResultSetConverter.convert(resultSet));
+        activitySession.setCurrentDate(resultSet.getTimestamp("date"));
         LOGGER.debug("Activity session result set is converted!");
         return activitySession;
     }

@@ -6,7 +6,13 @@ import com.time.tracking.converter.entityConverter.ActivitySessionConverter;
 import com.time.tracking.exception.ServiceException;
 import com.time.tracking.model.dao.ActivitySessionDao;
 import com.time.tracking.model.dto.ActivitySessionDto;
+import com.time.tracking.model.dto.user.UserDto;
 import com.time.tracking.model.entity.ActivitySession;
+import com.time.tracking.util.DateTimeUtils;
+
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @InitializeComponent
 public class ActivitySessionService {
@@ -27,6 +33,17 @@ public class ActivitySessionService {
         try {
             ActivitySession activitySession = activitySessionConverter.convert(activitySessionDto);
             activitySessionDao.insert(activitySession);
+        } catch (Exception e) {
+            throw new ServiceException("Activity session create failed", e);
+        }
+    }
+
+    public List<ActivitySessionDto> receiveTodayActivities(UserDto userDto) throws ServiceException {
+        try {
+            Date currentFilmSessionDate = new Date();
+            Date beginOfDay = DateTimeUtils.receiveBeginOfDay(currentFilmSessionDate);
+            Date endOfDay = DateTimeUtils.receiveEndOfDay(currentFilmSessionDate);
+            return activitySessionDao.findByIdTodayActivities(userDto.getId(), beginOfDay, endOfDay).stream().map(activitySessionDtoFromEntityConverter::convert).collect(Collectors.toList());
         } catch (Exception e) {
             throw new ServiceException("Activity session create failed", e);
         }

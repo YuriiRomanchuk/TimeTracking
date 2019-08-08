@@ -27,6 +27,7 @@ public class ActivitySessionConverter implements Converter<ActivitySessionDto, A
         activitySession.setTimeSpent(activitySessionDto.getTimeSpent());
         activitySession.setUser(userConverter.convert(activitySessionDto.getUserDto()));
         activitySession.setActivity(activityConverter.convert(activitySessionDto.getActivityDto()));
+        activitySession.setCurrentDate(activitySessionDto.getCurrentDate());
         LOGGER.debug("Activity session is converted from activity session dto!");
         return activitySession;
     }

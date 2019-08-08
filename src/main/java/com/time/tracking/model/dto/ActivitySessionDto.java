@@ -2,6 +2,7 @@ package com.time.tracking.model.dto;
 
 import com.time.tracking.model.dto.user.UserDto;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class ActivitySessionDto {
@@ -9,8 +10,8 @@ public class ActivitySessionDto {
     private int id;
     private ActivityDto activity;
     private UserDto userDto;
+    private Date currentDate;
     private int timeSpent;
-
 
     public int getId() {
         return id;
@@ -22,6 +23,10 @@ public class ActivitySessionDto {
 
     public UserDto getUserDto() {
         return userDto;
+    }
+
+    public Date getCurrentDate() {
+        return currentDate;
     }
 
     public int getTimeSpent() {
@@ -40,6 +45,10 @@ public class ActivitySessionDto {
         this.userDto = userDto;
     }
 
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
+    }
+
     public void setTimeSpent(int timeSpent) {
         this.timeSpent = timeSpent;
     }
@@ -52,11 +61,12 @@ public class ActivitySessionDto {
         return id == that.id &&
                 timeSpent == that.timeSpent &&
                 Objects.equals(activity, that.activity) &&
-                Objects.equals(userDto, that.userDto);
+                Objects.equals(userDto, that.userDto) &&
+                Objects.equals(currentDate, that.currentDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, activity, userDto, timeSpent);
+        return Objects.hash(id, activity, userDto, currentDate, timeSpent);
     }
 }
