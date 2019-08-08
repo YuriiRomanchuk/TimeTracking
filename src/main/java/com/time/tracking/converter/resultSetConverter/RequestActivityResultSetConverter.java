@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @InitializeComponent
 public class RequestActivityResultSetConverter implements Converter<ResultSet, RequestActivity> {
@@ -23,9 +24,9 @@ public class RequestActivityResultSetConverter implements Converter<ResultSet, R
     }
 
     @Override
-    public RequestActivity convert(ResultSet resultSet) throws Exception {
+    public RequestActivity convert(ResultSet resultSet) throws SQLException {
         RequestActivity requestActivity = new RequestActivity();
-        requestActivity.setId(resultSet.getInt("id "));
+        requestActivity.setId(resultSet.getInt("id"));
         requestActivity.setActivity(activityResultSetConverter.convert(resultSet));
         requestActivity.setUser(userResultSetConverter.convert(resultSet));
         requestActivity.setDateReview(resultSet.getTimestamp("date_review"));

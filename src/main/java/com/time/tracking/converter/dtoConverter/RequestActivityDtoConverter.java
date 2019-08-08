@@ -23,12 +23,21 @@ public class RequestActivityDtoConverter implements Converter<HttpServletRequest
     }
 
     @Override
-    public RequestActivityDto convert(HttpServletRequest request) throws Exception {
+    public RequestActivityDto convert(HttpServletRequest request) {
         RequestActivityDto requestActivityDto = new RequestActivityDto();
-        requestActivityDto.setUserDto(userDtoConverter.convertFromRequestForUserId(request));
-        requestActivityDto.setActivityDto(activityDtoConverter.convert(request));
-        requestActivityDto.setRequestAction(RequestAction.valueOf(request.getParameter("requestAction")));
-        requestActivityDto.setRequestStatus(RequestStatus.NEW);
+
+        String numberOfLine = request.getParameter("approve-request");
+        if (numberOfLine == null) {
+            numberOfLine = request.getParameter("reject-request");
+        }
+        if (numberOfLine != null) {
+            requestActivityDto.setId(Integer.valueOf(request.getParameter("request_id_" + numberOfLine).trim()));
+        } else {
+            requestActivityDto.setUserDto(userDtoConverter.convertFromRequestForUserId(request));
+            requestActivityDto.setActivityDto(activityDtoConverter.convert(request));
+            requestActivityDto.setRequestAction(RequestAction.valueOf(request.getParameter("requestAction")));
+            requestActivityDto.setRequestStatus(RequestStatus.NEW);
+        }
         LOGGER.debug("Request activity dto is converted");
         return requestActivityDto;
     }

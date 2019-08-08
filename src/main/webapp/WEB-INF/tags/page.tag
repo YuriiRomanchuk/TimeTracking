@@ -76,14 +76,15 @@
                     });
                 }, false);
             })();
-
-            $(function () {
-                window.setTimeout(function () {
-                    $('#my-alert').alert('close');
-                }, 20000);
-            });
         </script>
     </c:if>
+    <script>
+        $(function () {
+            window.setTimeout(function () {
+                $('#my-alert').alert('close');
+            }, 20000);
+        });
+    </script>
 </head>
 <body>
 <tag:header/>
@@ -96,11 +97,18 @@
         <div class="w-100 justify-content-center">
             <h1 class="text-center">${title}</h1>
         </div>
-        <div class="row my-3 offset-md-3">
-            <div class="col-sm-4">
+        <c:choose>
+            <c:when test="${dataTable != null}">
                 <jsp:doBody/>
-            </div>
-        </div>
+            </c:when>
+            <c:otherwise>
+                <div class="row my-3 offset-md-3">
+                    <div class="col-sm-4">
+                        <jsp:doBody/>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 

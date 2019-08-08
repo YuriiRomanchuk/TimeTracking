@@ -47,6 +47,10 @@ public class RequestResolver {
                     Method currentMethod = Arrays.stream(converter.getClass().getDeclaredMethods())
                             .filter(m -> !m.getReturnType().isAssignableFrom(Object.class))
                             .findFirst().orElse(null);
+                    if (request.getClass().getTypeName().contains("RequestFacade")
+                            & !currentMethod.getGenericParameterTypes()[0].getTypeName().contains("HttpServletRequest")) {
+                        continue;
+                    }
                     if (currentMethod != null && currentMethod.getReturnType().isAssignableFrom(parameter.getType())) {
                         arguments.add(converter.convert(request));
                     }
