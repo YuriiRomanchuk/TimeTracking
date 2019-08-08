@@ -14,7 +14,7 @@ import java.sql.SQLException;
 @InitializeComponent
 public class RequestActivityResultSetConverter implements Converter<ResultSet, RequestActivity> {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserResultSetConverter.class);
+    private static final Logger LOGGER = LogManager.getLogger(RequestActivityResultSetConverter.class);
     private final ActivityResultSetConverter activityResultSetConverter;
     private final UserResultSetConverter userResultSetConverter;
 

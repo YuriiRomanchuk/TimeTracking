@@ -9,7 +9,7 @@
 <fmt:setBundle basename="regexpValidator" var="regexpValidator"/>
 <fmt:message key="local.login" bundle="${messages}" var="myVar"/>
 
-<tag:page showBar="true" needValidation="true" title="Request activity(add)">
+<tag:page showBar="true" needValidation="true" title="Request activity(delete)">
 
     <form id="form" method="post" action="user-add-request-activity" class="needs-validation" novalidate>
 
@@ -31,7 +31,7 @@
             <label for="action"><fmt:message key="local.user.add.request.activity.action" bundle="${messages}"/></label>
             <input required type="text" class="form-control" id="action" name="action"
                    readonly
-                   value='ADD'>
+                   value='DELETE'>
 
             <label for="status"><fmt:message key="local.user.add.request.activity.status" bundle="${messages}"/></label>
             <input required type="text" class="form-control" id="status" name="status"

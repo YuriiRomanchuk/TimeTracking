@@ -43,4 +43,13 @@ public class ActivityService {
             throw new ServiceException("Activity receive failed", e);
         }
     }
+
+    public List<ActivityDto> receiveBusyActivitiesForUser(int userId) throws ServiceException {
+        try {
+            List<Activity> activities = activityDao.receiveBusyActivitiesForUser(userId);
+            return activities.stream().map(activityDtoFromEntityConverter::convert).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new ServiceException("Activity receive failed", e);
+        }
+    }
 }

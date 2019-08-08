@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 @InitializeComponent
 public class UserConverter implements Converter<UserDto, User> {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserCreateConverter.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserConverter.class);
 
     @Override
     public User convert(UserDto userDto) {

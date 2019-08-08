@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 @InitializeComponent
 public class RequestActivityConverter implements Converter<RequestActivityDto, RequestActivity> {
 
-    private static final Logger LOGGER = LogManager.getLogger(ActivityConverter.class);
+    private static final Logger LOGGER = LogManager.getLogger(RequestActivityConverter.class);
 
     private final ActivityConverter activityConverter;
     private final UserConverter userConverter;

@@ -3,7 +3,6 @@ package com.time.tracking.model.dao;
 import com.time.tracking.config.annotation.InitializeComponent;
 import com.time.tracking.converter.resultSetConverter.ActivityResultSetConverter;
 import com.time.tracking.model.entity.Activity;
-import com.time.tracking.model.enums.RequestStatus;
 
 import java.util.List;
 
@@ -65,6 +64,18 @@ public class ActivityDao implements GenericDao<Activity> {
                         })
                         .setConverter(activityResultSetConverter::convert)
                         .build());
+    }
+
+    public List<Activity> receiveBusyActivitiesForUser(int userId) {
+        return dataSource.implementQueries(
+                QueryData.newBuilder()
+                        .setQuery(dataSource.receiveQueryText("activity.find.busy"))
+                        .setParameters(ps -> {
+                            ps.setInt(1, userId);
+                        })
+                        .setConverter(activityResultSetConverter::convert)
+                        .build());
+
     }
 }
 

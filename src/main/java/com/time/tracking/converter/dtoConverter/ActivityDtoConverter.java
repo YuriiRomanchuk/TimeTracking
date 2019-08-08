@@ -18,19 +18,7 @@ public class ActivityDtoConverter implements Converter<HttpServletRequest, Activ
         ActivityDto activityDto = new ActivityDto();
         activityDto.setId(Integer.valueOf(request.getParameter("activity_id")));
         activityDto.setName(request.getParameter("name"));
-        return activityDto;
-    }
-
-    public ActivityDto convertFromRequestForActivityId(HttpServletRequest request) {
-        int activityId = (Integer) request.getSession().getAttribute("activityId");
-        LOGGER.debug("User dto is converted from id!");
-        return convertByActivityId(activityId);
-    }
-
-    public ActivityDto convertByActivityId(int activityId) {
-        ActivityDto activityDto = new ActivityDto();
-        activityDto.setId(activityId);
-        LOGGER.debug("Activity dto is converted from id!");
+        LOGGER.debug("Activity dto is converted from request!");
         return activityDto;
     }
 }

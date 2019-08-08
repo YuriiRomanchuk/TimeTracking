@@ -31,5 +31,4 @@ public class RequestActivityDtoFromEntityConverter implements Converter<RequestA
         LOGGER.debug("Request activity dto is converted from entity!");
         return requestActivityDto;
     }
-
 }

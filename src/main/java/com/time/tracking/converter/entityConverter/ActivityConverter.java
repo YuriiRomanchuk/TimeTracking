@@ -20,6 +20,4 @@ public class ActivityConverter implements Converter<ActivityDto, Activity> {
         LOGGER.debug("Activity is converted from activity dto!");
         return activity;
     }
-
-
 }

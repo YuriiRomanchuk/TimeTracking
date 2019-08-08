@@ -36,7 +36,7 @@ public class RequestActivityDtoConverter implements Converter<HttpServletRequest
         } else {
             requestActivityDto.setUserDto(userDtoConverter.convert(request));
             requestActivityDto.setActivityDto(activityDtoConverter.convert(request));
-            requestActivityDto.setRequestAction(RequestAction.valueOf(request.getParameter("requestAction")));
+            requestActivityDto.setRequestAction(RequestAction.valueOf(request.getParameter("action")));
             requestActivityDto.setRequestStatus(RequestStatus.NEW);
             requestActivityDto.setDateReview(DateTimeUtils.parseDate("0000-00-00"));
         }

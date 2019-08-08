@@ -6,7 +6,6 @@ import com.time.tracking.config.annotation.PostMessage;
 import com.time.tracking.exception.ServiceException;
 import com.time.tracking.model.dto.RequestActivityDto;
 import com.time.tracking.model.dto.user.UserDto;
-import com.time.tracking.model.enums.RequestAction;
 import com.time.tracking.model.enums.RequestStatus;
 import com.time.tracking.service.ActivityService;
 import com.time.tracking.service.RequestActivityService;
@@ -28,12 +27,11 @@ public class RequestActivityController implements Controller {
     }
 
     @GetMessage("/user-add-request-activity")
-    public View showRequestActivityPage(UserDto userDto) {
+    public View showAddRequestActivityPage(UserDto userDto) {
         View view;
         try {
             view = new ViewModel("WEB-INF/jsp/user/user-add-request-activity.jsp");
             view.addParameter("activities", activityService.receiveFreeActivitiesForUser(userDto.getId()));
-            view.addParameter("requestAction", RequestAction.values());
             return view;
         } catch (ServiceException e) {
             view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
@@ -43,14 +41,25 @@ public class RequestActivityController implements Controller {
 
     @PostMessage("/user-add-request-activity")
     public View addRequestActivity(RequestActivityDto requestActivityDto) {
+         return new RedirectView(createRequestActivity(requestActivityDto));
+    }
+
+    @GetMessage("/user-delete-request-activity")
+    public View showDeleteRequestActivityPage(UserDto userDto) {
         View view;
         try {
-            requestActivityService.addRequestActivity(requestActivityDto);
-            view = receiveViewModel("user-personal-area", "Request activity created!");
+            view = new ViewModel("WEB-INF/jsp/user/user-delete-request-activity.jsp");
+            view.addParameter("activities", activityService.receiveBusyActivitiesForUser(userDto.getId()));
+            return view;
         } catch (ServiceException e) {
             view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
         }
         return new RedirectView(view);
+    }
+
+    @PostMessage("/user-delete-request-activity")
+    public View deleteRequestActivity(RequestActivityDto requestActivityDto) {
+        return new RedirectView(createRequestActivity(requestActivityDto));
     }
 
     @GetMessage("/admin-approval-request-activity")
@@ -76,6 +85,17 @@ public class RequestActivityController implements Controller {
         return new RedirectView(changeRequestActivityStatus(requestActivityDto.getId(), RequestStatus.REJECT));
     }
 
+    private View createRequestActivity(RequestActivityDto requestActivityDto) {
+        View view;
+        try {
+            requestActivityService.addRequestActivity(requestActivityDto);
+            view = receiveViewModel("user-personal-area", "Request activity created!");
+        } catch (ServiceException e) {
+            view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+        }
+        return view;
+    }
+
     private View changeRequestActivityStatus(int requestActivityId, RequestStatus requestStatus) {
         View view;
         try {
@@ -93,6 +113,4 @@ public class RequestActivityController implements Controller {
         view.addParameter("Error", error);
         return view;
     }
-
-
 }

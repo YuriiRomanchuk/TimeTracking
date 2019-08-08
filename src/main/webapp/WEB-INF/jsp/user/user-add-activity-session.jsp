@@ -9,36 +9,30 @@
 <fmt:setBundle basename="regexpValidator" var="regexpValidator"/>
 <fmt:message key="local.login" bundle="${messages}" var="myVar"/>
 
-<tag:page showBar="true" needValidation="true" title="Request activity(add)">
+<tag:page showBar="true" needValidation="true" title="Activity session">
 
-    <form id="form" method="post" action="user-add-request-activity" class="needs-validation" novalidate>
+    <form id="form" method="post" action="user-add-activity-session" class="needs-validation" novalidate>
 
-        <label for="userId"><fmt:message key="local.user.request.activity.user.id" bundle="${messages}"/></label>
+        <label for="userId"><fmt:message key="local.user.activity.session.user.id" bundle="${messages}"/></label>
         <input required type="text" class="form-control" id="userId" name="userId" size="1"
                readonly
                value=${sessionScope.user_id}>
         <div class="form-group">
-            <label for="activity_id"><fmt:message key="local.user.add.request.activity.activities"
+            <label for="activity_id"><fmt:message key="local.user.add.activity.session.activities"
                                                   bundle="${messages}"/></label>
             <select name="activity_id" id="activity_id" class="form-control" title="activity_id" required="required">
-                <option selected><fmt:message key="local.user.add.request.activity.activities.placeholder"
+                <option selected><fmt:message key="local.user.add.activity.session.activities.placeholder"
                                               bundle="${messages}"/></option>
                 <c:forEach var="activity" items="${activities}">
                     <option value=${activity.getId()}>${activity.getName()} </option>
                     ${activity.getName()}
                 </c:forEach>
             </select>
-            <label for="action"><fmt:message key="local.user.add.request.activity.action" bundle="${messages}"/></label>
-            <input required type="text" class="form-control" id="action" name="action"
-                   readonly
-                   value='ADD'>
-
-            <label for="status"><fmt:message key="local.user.add.request.activity.status" bundle="${messages}"/></label>
-            <input required type="text" class="form-control" id="status" name="status"
-                   readonly
-                   value='NEW'>
+            <label for="time_spent"><fmt:message key="local.user.add.activity.session.time.spent"
+                                                 bundle="${messages}"/></label>
+            <input required type="number" class="form-control" id="time_spent" name="time_spent">
         </div>
-        <button type="submit" class="btn btn-primary"><fmt:message key="local.admin.add.request.activity.button.add"
+        <button type="submit" class="btn btn-primary"><fmt:message key="local.admin.add.activity.session.button.add"
                                                                    bundle="${messages}"/></button>
     </form>
 </tag:page>
