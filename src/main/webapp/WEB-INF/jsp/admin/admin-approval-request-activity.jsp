@@ -10,7 +10,7 @@
 <fmt:message key="local.admin.request.activity" bundle="${messages}" var="myVar"/>
 <c:set var="dataTableName" value="approval-request-activity" scope="page"/>
 
-<tag:page showBar="true" dataTable="approval-request-activity" title="Request activity approval">
+<tag:page showBar="true" dataTable="approval-request-activity" title="${pageScope.myVar}">
     <form method="post" action="admin-approval-request-activity">
         <div class="w-100 d-none d-md-block"></div>
         <table id="${dataTableName}" class="table table-striped">

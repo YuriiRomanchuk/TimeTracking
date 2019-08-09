@@ -6,6 +6,7 @@ import com.time.tracking.converter.entityConverter.RequestActivityConverter;
 import com.time.tracking.exception.ServiceException;
 import com.time.tracking.model.dao.RequestActivityDao;
 import com.time.tracking.model.dto.RequestActivityDto;
+import com.time.tracking.model.dto.user.UserDto;
 import com.time.tracking.model.entity.RequestActivity;
 import com.time.tracking.model.enums.RequestStatus;
 
@@ -49,7 +50,16 @@ public class RequestActivityService {
         try {
             requestActivityDao.updateRequestActivityStatus(requestActivityId, requestStatus, date);
         } catch (Exception e) {
-            throw new ServiceException("Request activity create failed", e);
+            throw new ServiceException("Request activity change failed", e);
         }
     }
+
+    public List<RequestActivityDto> receiveActivityRequestsByUserId(UserDto userDto) throws ServiceException {
+        try {
+            return requestActivityDao.receiveActivityRequestsByUserId(userDto.getId()).stream().map(requestActivityDtoFromEntityConverter::convert).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new ServiceException("Requests activity receive failed", e);
+        }
+    }
+
 }

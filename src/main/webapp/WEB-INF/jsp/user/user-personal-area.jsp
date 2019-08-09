@@ -7,10 +7,10 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages" var="messages"/>
 <fmt:setBundle basename="regexpValidator" var="regexpValidator"/>
-<fmt:message key="local.login" bundle="${messages}" var="myVar"/>
+<fmt:message key="local.user.personal.area" bundle="${messages}" var="myVar"/>
 <c:set var="dataTableName" value="user-personal-area" scope="page"/>
 
-<tag:page showBar="true" dataTable="user-personal-area" title="Today activities">
+<tag:page showBar="true" dataTable="user-personal-area" title="${pageScope.myVar}">
     <table id="${dataTableName}" class="table table-striped">
         <thead>
         <tr>

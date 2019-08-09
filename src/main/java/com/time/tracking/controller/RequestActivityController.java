@@ -85,6 +85,19 @@ public class RequestActivityController implements Controller {
         return new RedirectView(changeRequestActivityStatus(requestActivityDto.getId(), RequestStatus.REJECT));
     }
 
+    @GetMessage("/user-history-request")
+    public View showUserHistoryRequest(UserDto userDto) {
+        View view;
+        try {
+            view = new ViewModel("WEB-INF/jsp/user/user-history-request.jsp");
+            view.addParameter("requests", requestActivityService.receiveActivityRequestsByUserId(userDto));
+            return view;
+        } catch (ServiceException e) {
+            view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+        }
+        return new RedirectView(view);
+    }
+
     private View createRequestActivity(RequestActivityDto requestActivityDto) {
         View view;
         try {

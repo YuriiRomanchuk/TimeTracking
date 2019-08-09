@@ -81,4 +81,13 @@ public class RequestActivityDao implements GenericDao<RequestActivity> {
         dataSource.implementQueries(data);
     }
 
+    public List<RequestActivity> receiveActivityRequestsByUserId(int id) {
+        return dataSource.implementQueries(QueryData.newBuilder()
+                .setQuery(dataSource.receiveQueryText("request.activity.find.by.user.id"))
+                .setParameters(ps -> {
+                    ps.setInt(1, id);
+                })
+                .setConverter(requestActivityResultSetConverter::convert)
+                .build());
+    }
 }
