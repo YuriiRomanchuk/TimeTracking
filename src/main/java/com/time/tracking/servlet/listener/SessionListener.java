@@ -26,7 +26,6 @@ public class SessionListener implements HttpSessionListener {
         Map<String, UserAuthorization> usersAuthorization = (HashMap<String, UserAuthorization>) servletContext.getAttribute("usersAuthorization");
         usersAuthorization.remove(httpSessionEvent.getSession().getId());
         httpSessionEvent.getSession().setAttribute("role", Role.UNKNOWN);
-
         LOGGER.debug("user logout" + httpSessionEvent.getSession().getId());
     }
 }

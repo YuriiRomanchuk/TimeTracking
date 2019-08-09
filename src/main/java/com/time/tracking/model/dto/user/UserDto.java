@@ -10,7 +10,6 @@ public class UserDto {
     private String email;
     private String phone;
 
-
     public int getId() {
         return id;
     }

@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 public class RequestActivityDtoConverter implements Converter<HttpServletRequest, RequestActivityDto> {
 
     private static final Logger LOGGER = LogManager.getLogger(RequestActivityDto.class);
-    private UserDtoConverter userDtoConverter;
-    private ActivityDtoConverter activityDtoConverter;
+    private final UserDtoConverter userDtoConverter;
+    private final ActivityDtoConverter activityDtoConverter;
 
     public RequestActivityDtoConverter(UserDtoConverter userDtoConverter, ActivityDtoConverter activityDtoConverter) {
         this.userDtoConverter = userDtoConverter;

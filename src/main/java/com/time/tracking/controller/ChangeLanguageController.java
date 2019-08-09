@@ -13,5 +13,4 @@ public class ChangeLanguageController implements Controller {
     public View changeLanguage() {
         return new RedirectView(new ViewModel("index"));
     }
-
 }

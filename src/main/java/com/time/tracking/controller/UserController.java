@@ -11,6 +11,8 @@ import com.time.tracking.model.entity.User;
 import com.time.tracking.model.enums.Role;
 import com.time.tracking.service.ActivitySessionService;
 import com.time.tracking.service.UserService;
+import com.time.tracking.validator.UserLoginValidator;
+import com.time.tracking.validator.UserRegistrationDataValidator;
 import com.time.tracking.view.RedirectView;
 import com.time.tracking.view.View;
 import com.time.tracking.view.ViewModel;
@@ -23,10 +25,17 @@ public class UserController implements Controller {
     private static final Logger LOGGER = LogManager.getLogger(UserController.class);
     private final UserService userService;
     private final ActivitySessionService activitySessionService;
+    private final UserRegistrationDataValidator userRegistrationDataValidator;
+    private final UserLoginValidator userLoginValidator;
 
-    public UserController(UserService userService, ActivitySessionService activitySessionService) {
+    public UserController(UserService userService,
+                          ActivitySessionService activitySessionService,
+                          UserRegistrationDataValidator userRegistrationDataValidator,
+                          UserLoginValidator userLoginValidator) {
         this.userService = userService;
         this.activitySessionService = activitySessionService;
+        this.userRegistrationDataValidator = userRegistrationDataValidator;
+        this.userLoginValidator = userLoginValidator;
     }
 
     @GetMessage("/registration-form")
@@ -49,10 +58,8 @@ public class UserController implements Controller {
     public View loginUser(UserLoginDto userLoginDto) {
         View view;
         try {
-            /*view = validateLoginUser(userDto);*/
-            /*  LOGGER.debug("User login");*/
-            User user = userService.loginUser(userLoginDto);
-            view = receiveViewModel(user.getRole().equals(Role.ADMIN) ? "admin-personal-area" : "user-personal-area", "");
+            view = validateLoginUser(userLoginDto);
+            LOGGER.debug("User login");
         } catch (ServiceException e) {
             view = receiveViewModel("login", e.getMessage());
         }
@@ -63,8 +70,8 @@ public class UserController implements Controller {
     public View createUser(UserCreateDto userCreateDto) {
         View view;
         try {
-            userService.createUser(userCreateDto);
-            view = receiveViewModel("login", "User created!");
+            view = validateRegistrationUser(userCreateDto);
+            LOGGER.debug("User create");
         } catch (Exception e) {
             view = receiveViewModel("registration-form", e.getMessage());
         }
@@ -107,5 +114,28 @@ public class UserController implements Controller {
         return view;
     }
 
+    private View validateLoginUser(UserLoginDto userLoginDto) throws ServiceException {
+        View view;
+        String invalidateFields = userLoginValidator.validate(userLoginDto);
+        if (!invalidateFields.isEmpty()) {
+            view = receiveViewModel("login", invalidateFields);
+        } else {
+            User user = userService.loginUser(userLoginDto);
+            view = receiveViewModel(user.getRole().equals(Role.ADMIN) ? "admin-personal-area" : "user-personal-area", "");
+        }
+        return view;
+    }
 
+    private View validateRegistrationUser(UserCreateDto userCreateDto) throws ServiceException {
+        View view;
+        String invalidateFields = userRegistrationDataValidator.validate(userCreateDto);
+        if (!invalidateFields.isEmpty()) {
+            view = receiveViewModel("registration-form", invalidateFields);
+            view.addParameter("userDto", userCreateDto);
+        } else {
+            userService.createUser(userCreateDto);
+            view = receiveViewModel("login", "User created!");
+        }
+        return view;
+    }
 }

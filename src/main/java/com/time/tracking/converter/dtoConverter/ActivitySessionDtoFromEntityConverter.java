@@ -11,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 public class ActivitySessionDtoFromEntityConverter implements Converter<ActivitySession, ActivitySessionDto> {
 
     private static final Logger LOGGER = LogManager.getLogger(UserDtoConverter.class);
-    private ActivityDtoFromEntityConverter activityDtoFromEntityConverter;
-    private UserDtoFromEntityConverter userDtoFromEntityConverter;
+    private final ActivityDtoFromEntityConverter activityDtoFromEntityConverter;
+    private final UserDtoFromEntityConverter userDtoFromEntityConverter;
 
     public ActivitySessionDtoFromEntityConverter(ActivityDtoFromEntityConverter activityDtoFromEntityConverter, UserDtoFromEntityConverter userDtoFromEntityConverter) {
         this.activityDtoFromEntityConverter = activityDtoFromEntityConverter;

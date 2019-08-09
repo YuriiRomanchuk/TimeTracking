@@ -16,7 +16,8 @@ public class ActivityDtoConverter implements Converter<HttpServletRequest, Activ
     @Override
     public ActivityDto convert(HttpServletRequest request) {
         ActivityDto activityDto = new ActivityDto();
-        activityDto.setId(Integer.valueOf(request.getParameter("activity_id")));
+        activityDto.setId(request.getParameter("activity_id") != null & !request.getParameter("activity_id").equals("Enter activities")
+                ? Integer.valueOf(request.getParameter("activity_id")) : -1);
         activityDto.setName(request.getParameter("name"));
         LOGGER.debug("Activity dto is converted from request!");
         return activityDto;

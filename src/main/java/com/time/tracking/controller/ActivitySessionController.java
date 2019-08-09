@@ -5,10 +5,10 @@ import com.time.tracking.config.annotation.InitializeComponent;
 import com.time.tracking.config.annotation.PostMessage;
 import com.time.tracking.exception.ServiceException;
 import com.time.tracking.model.dto.ActivitySessionDto;
-import com.time.tracking.model.dto.RequestActivityDto;
 import com.time.tracking.model.dto.user.UserDto;
 import com.time.tracking.service.ActivityService;
 import com.time.tracking.service.ActivitySessionService;
+import com.time.tracking.validator.AddActivitySessionValidator;
 import com.time.tracking.view.RedirectView;
 import com.time.tracking.view.View;
 import com.time.tracking.view.ViewModel;
@@ -18,10 +18,14 @@ public class ActivitySessionController implements Controller {
 
     private final ActivitySessionService requestActivityService;
     private final ActivityService activityService;
+    private final AddActivitySessionValidator addActivitySessionValidator;
 
-    public ActivitySessionController(ActivitySessionService requestActivityService, ActivityService activityService) {
+    public ActivitySessionController(ActivitySessionService requestActivityService,
+                                     ActivityService activityService,
+                                     AddActivitySessionValidator addActivitySessionValidator) {
         this.requestActivityService = requestActivityService;
         this.activityService = activityService;
+        this.addActivitySessionValidator = addActivitySessionValidator;
     }
 
     @GetMessage("/user-add-activity-session")
@@ -40,11 +44,17 @@ public class ActivitySessionController implements Controller {
     @PostMessage("/user-add-activity-session")
     public View addRequestActivity(ActivitySessionDto activitySessionDto) {
         View view;
-        try {
-            requestActivityService.addActivitySession(activitySessionDto);
-            view = receiveViewModel("user-personal-area", "Activity session created!");
-        } catch (ServiceException e) {
-            view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+        String invalidateFields = addActivitySessionValidator.validate(activitySessionDto);
+        if (!invalidateFields.isEmpty()) {
+            view = receiveViewModel("user-add-activity-session", invalidateFields);
+            view.addParameter("activityDto", activitySessionDto);
+        } else {
+            try {
+                requestActivityService.addActivitySession(activitySessionDto);
+                view = receiveViewModel("user-personal-area", "Activity session created!");
+            } catch (ServiceException e) {
+                view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+            }
         }
         return new RedirectView(view);
     }
@@ -55,5 +65,4 @@ public class ActivitySessionController implements Controller {
         view.addParameter("Error", error);
         return view;
     }
-
 }

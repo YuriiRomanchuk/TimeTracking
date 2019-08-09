@@ -27,7 +27,7 @@ public class AuthorizationFilter implements Filter {
     private UserService userService;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
         userService = ComponentInitializer.getInstance().receiveObjectByType(UserService.class);
         userLoginDtoConverter = ComponentInitializer.getInstance().receiveObjectByType(UserLoginDtoConverter.class);

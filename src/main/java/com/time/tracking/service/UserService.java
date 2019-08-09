@@ -27,11 +27,15 @@ public class UserService {
     }
 
     public Role receiveUserRole(UserLoginDto userLoginDto) {
-        return userDao.findUserByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword()).map(User::getRole).orElse(Role.UNKNOWN);
+        return userDao.findUserByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword())
+                .map(User::getRole)
+                .orElse(Role.UNKNOWN);
     }
 
     public int receiveUserId(UserLoginDto userLoginDto) {
-        return userDao.findUserByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword()).map(User::getId).orElse(null);
+        return userDao.findUserByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword())
+                .map(User::getId)
+                .orElse(null);
     }
 
     private Role receiveRoleForUser() {

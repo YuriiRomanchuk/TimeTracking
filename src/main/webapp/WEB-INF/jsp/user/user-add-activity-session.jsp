@@ -28,7 +28,9 @@
             </select>
             <label for="time_spent"><fmt:message key="local.user.add.activity.session.time.spent"
                                                  bundle="${messages}"/></label>
-            <input required type="number" class="form-control" id="time_spent" name="time_spent">
+            <input required type="number"
+                   pattern="<fmt:message key="regexNumber" bundle="${regexpValidator}"/>"
+                   class="form-control" id="time_spent" name="time_spent">
         </div>
         <button type="submit" class="btn btn-primary"><fmt:message key="local.admin.add.activity.session.button.add"
                                                                    bundle="${messages}"/></button>

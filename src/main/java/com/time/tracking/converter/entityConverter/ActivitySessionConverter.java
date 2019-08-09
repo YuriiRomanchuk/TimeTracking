@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 public class ActivitySessionConverter implements Converter<ActivitySessionDto, ActivitySession> {
 
     private static final Logger LOGGER = LogManager.getLogger(ActivitySessionConverter.class);
-
     private final ActivityConverter activityConverter;
     private final UserConverter userConverter;
 

@@ -13,8 +13,8 @@ import java.util.Date;
 public class ActivitySessionDtoConverter implements Converter<HttpServletRequest, ActivitySessionDto> {
 
     private static final Logger LOGGER = LogManager.getLogger(ActivitySessionDtoConverter.class);
-    private UserDtoConverter userDtoConverter;
-    private ActivityDtoConverter activityDtoConverter;
+    private final UserDtoConverter userDtoConverter;
+    private final ActivityDtoConverter activityDtoConverter;
 
     public ActivitySessionDtoConverter(UserDtoConverter userDtoConverter, ActivityDtoConverter activityDtoConverter) {
         this.userDtoConverter = userDtoConverter;

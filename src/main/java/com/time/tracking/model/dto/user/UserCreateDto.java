@@ -4,7 +4,7 @@ import com.time.tracking.model.enums.Role;
 
 import java.util.Objects;
 
-public class UserCreateDto{
+public class UserCreateDto {
 
     private int id;
     private String login;
@@ -15,7 +15,6 @@ public class UserCreateDto{
     private String email;
     private String phone;
     private Role role;
-
 
     public int getId() {
         return id;
