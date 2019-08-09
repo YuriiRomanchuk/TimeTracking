@@ -3,7 +3,7 @@
 <c:set var='error' value="${Error}"/>
 
 <div class="col w-100">
-    <c:if test="${error !=null}">
+    <c:if test="${error !=null && error != ''}">
         <div id="my-alert" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
                 ${error}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
