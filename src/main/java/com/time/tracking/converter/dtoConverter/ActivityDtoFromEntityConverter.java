@@ -17,6 +17,7 @@ public class ActivityDtoFromEntityConverter implements Converter<Activity, Activ
         ActivityDto activityDto = new ActivityDto();
         activityDto.setId(activity.getId());
         activityDto.setName(activity.getName());
+        activityDto.setEnglishName(activity.getEnglishName());
         LOGGER.debug("Activity dto is converted from entity!");
         return activityDto;
     }

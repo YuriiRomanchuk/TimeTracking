@@ -8,8 +8,41 @@
     <welcome-file-list>
         <welcome-file>/index.jsp</welcome-file>
     </welcome-file-list>
-    <!-- <error-page>
-         <exception-type>java.lang.Exception</exception-type>
-         <location>/WEB-INF/jsp/error.jsp</location>
-     </error-page>-->
+
+    <filter>
+        <filter-name>ForbiddenUserPageFilter</filter-name>
+        <filter-class>com.time.tracking.servlet.filter.UserPageFilter</filter-class>
+        <init-param>
+            <param-name>forbiddenPagesUser</param-name>
+            <param-value>admin-personal-area,index,registration-form,login,admin-activity,
+                admin-approval-request-activity,admin-personal-area
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>forbiddenPagesUnknown</param-name>
+            <param-value>admin-personal-area,user-personal-area,user-personal-area,admin-activity,
+                admin-approval-request-activity,admin-personal-area, user-add-activity-session,user-add-request-activity,
+                user-delete-request-activity,user-history-request,user-personal-area
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>forbiddenPagesAdmin</param-name>
+            <param-value>
+                user-personal-area,login,registration-form,index,user-add-activity-session,user-add-request-activity,
+                user-delete-request-activity,user-history-request,user-personal-area
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>allPages</param-name>
+            <param-value>
+                index,admin-personal-area,login,registration-form,user-personal-area,admin-activity,
+                admin-approval-request-activity,admin-personal-area, user-add-activity-session,user-add-request-activity,
+                user-delete-request-activity,user-history-request,user-personal-area
+            </param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>ForbiddenUserPageFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

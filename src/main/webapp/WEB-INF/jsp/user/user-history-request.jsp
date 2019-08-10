@@ -11,6 +11,7 @@
 <c:set var="dataTableName" value="user-personal-area" scope="page"/>
 
 <tag:page showBar="true" dataTable="user-history-request" title="${pageScope.myVar}">
+    <h1 class="text-center">${sessionScope.lang != 'uk'}</h1>
     <table id="${dataTableName}" class="table table-striped">
         <thead>
         <tr>
@@ -22,7 +23,15 @@
         <c:forEach var="request" items="${requests}" varStatus="loop">
             <tr>
                 <td>${request.getId()}</td>
-                <td>${request.getActivityDto().getName()}</td>
+                <td>
+                    <c:choose>
+                    <c:when test="${sessionScope.lang != 'uk'}">
+                        ${request.getActivityDto().getEnglishName()}
+                    </c:when>
+                    <c:otherwise>
+                        ${request.getActivityDto().getName()}
+                    </c:otherwise>
+                    </c:choose>
                 <td>${request.getRequestAction()}</td>
                 <td>${request.getRequestStatus()}</td>
             </tr>

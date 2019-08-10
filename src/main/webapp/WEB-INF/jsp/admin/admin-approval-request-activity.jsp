@@ -40,7 +40,15 @@
                         <input type="text" class="form-control" id="activity_${loop.index}"
                                name="activity_${loop.index}"
                                readonly
-                               value="${request.getActivityDto().getName()}">
+                               value=
+                               <c:choose>
+                               <c:when test="${sessionScope.lang != 'uk'}">
+                                   ${request.getActivityDto().getEnglishName()}
+                               </c:when>
+                               <c:otherwise>
+                                   ${request.getActivityDto().getName()}
+                               </c:otherwise>
+                        </c:choose>>
                     </td>
                     <td>
                         <input type="text" class="form-control" id="request_action_${loop.index}"

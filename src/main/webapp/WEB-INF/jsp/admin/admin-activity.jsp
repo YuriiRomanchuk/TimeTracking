@@ -19,6 +19,12 @@
                    pattern="<fmt:message key="regexStringNumber" bundle="${regexpValidator}"/>"
                    class="form-control" id="name" name="name"
                    placeholder="<fmt:message key="local.activity.name.placeholder" bundle="${messages}"/>">
+            <label for="english_name"><fmt:message key="local.activity.name.english"
+                                           bundle="${messages}"/></label>
+            <input required="english_name"
+                   pattern="<fmt:message key="regexStringNumber" bundle="${regexpValidator}"/>"
+                   class="form-control" id="english_name" name="english_name"
+                   placeholder="<fmt:message key="local.activity.name.english.placeholder" bundle="${messages}"/>">
         </div>
         <button type="submit" class="btn btn-primary"><fmt:message
                 key="local.activity.add.button" bundle="${messages}"/></button>

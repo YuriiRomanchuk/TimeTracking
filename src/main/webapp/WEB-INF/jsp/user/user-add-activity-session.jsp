@@ -22,8 +22,23 @@
                 <option selected><fmt:message key="local.user.add.activity.session.activities.placeholder"
                                               bundle="${messages}"/></option>
                 <c:forEach var="activity" items="${activities}">
-                    <option value=${activity.getId()}>${activity.getName()} </option>
-                    ${activity.getName()}
+                    <option value=${activity.getId()}>
+                        <c:choose>
+                            <c:when test="${sessionScope.lang != 'uk'}">
+                                ${activity.getEnglishName()}
+                            </c:when>
+                            <c:otherwise>
+                                ${activity.getName()}
+                            </c:otherwise>
+                        </c:choose></option>
+                    <c:choose>
+                        <c:when test="${sessionScope.lang != 'uk'}">
+                            ${activity.getEnglishName()}
+                        </c:when>
+                        <c:otherwise>
+                            ${activity.getName()}
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </select>
             <label for="time_spent"><fmt:message key="local.user.add.activity.session.time.spent"

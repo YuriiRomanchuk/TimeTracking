@@ -17,6 +17,7 @@ public class ActivityConverter implements Converter<ActivityDto, Activity> {
         Activity activity = new Activity();
         activity.setId(activityDto.getId());
         activity.setName(activityDto.getName());
+        activity.setEnglishName(activityDto.getEnglishName());
         LOGGER.debug("Activity is converted from activity dto!");
         return activity;
     }

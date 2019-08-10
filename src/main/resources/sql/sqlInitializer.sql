@@ -14,8 +14,9 @@ create table if not exists users
 
 create table if not exists activities
 (
-  id   SERIAL       NOT NULL,
-  name varchar(250) NOT NULL,
+  id           SERIAL       NOT NULL,
+  name         varchar(250) NOT NULL,
+  english_name varchar(250) NOT NULL,
   PRIMARY KEY (id)
 );
 

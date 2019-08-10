@@ -12,40 +12,47 @@
 <tag:page title="${pageScope.myVar}" needValidation="true">
     <form id="form" method="post" action="registration-form" class="needs-validation" novalidate>
         <div class="form-group">
-            <label for="firstName">First name:</label>
+            <label for="firstName"><fmt:message key="local.registration.first.name"
+                                                bundle="${messages}"/></label>
             <input required type="text" pattern="<fmt:message key="regexString"/>"
                    class="form-control" id="firstName"
                    name="firstName"
-                   placeholder="Enter your first name">
-            <label for="lastName">Last name:</label>
+                   placeholder="<fmt:message key="local.activity.first.name.placeholder" bundle="${messages}"/>">
+            <label for="lastName"><fmt:message key="local.registration.last.name"
+                                               bundle="${messages}"/></label>
             <input required type="text" pattern="<fmt:message key="regexString"/>"
                    class="form-control" id="lastName"
                    name="lastName"
-                   placeholder="Enter your last name">
-            <label for="middleName">Middle_name:</label>
+                   placeholder="<fmt:message key="local.activity.last.name.placeholder" bundle="${messages}"/>">
+            <label for="middleName"><fmt:message key="local.registration.middle.name"
+                                                 bundle="${messages}"/></label>
             <input required type="text" pattern="<fmt:message key="regexString"/>"
                    class="form-control" id="middleName"
                    name="middleName"
-                   placeholder="Enter your middle name">
-            <label for="login">Nickname:</label>
+                   placeholder="<fmt:message key="local.activity.middle.name.placeholder" bundle="${messages}"/>">
+            <label for="login"><fmt:message key="local.registration.login"
+                                            bundle="${messages}"/></label>
             <input required type="text" pattern="<fmt:message key="regexStringNumber"/>"
                    class="form-control" id="login"
                    name="login"
-                   placeholder="Enter your login">
-            <label for="password">Password:</label>
+                   placeholder="<fmt:message key="local.activity.login.placeholder" bundle="${messages}"/>">
+            <label for="password"><fmt:message key="local.registration.password"
+                                               bundle="${messages}"/></label>
             <input required type="password" pattern="<fmt:message key="regexStringNumber"/>"
                    class="form-control"
                    id="password" name="password"
-                   placeholder="Enter your password">
-            <label for="email">Email:</label>
+                   placeholder="<fmt:message key="local.activity.password.placeholder" bundle="${messages}"/>">
+            <label for="email"><fmt:message key="local.registration.email"
+                                            bundle="${messages}"/></label>
             <input required type="email" pattern="<fmt:message key="regexEmail"/>"
                    class="form-control" id="email"
                    name="email"
-                   placeholder="example@mail.com">
-            <label for="phone">Phone:</label>
+                   placeholder="<fmt:message key="local.activity.email.placeholder" bundle="${messages}"/>">
+            <label for="phone"><fmt:message key="local.registration.phone"
+                                            bundle="${messages}"/></label>
             <input required type="tel" pattern="<fmt:message key="regexPhoneNumber"/>"
                    class="form-control" id="phone" name="phone"
-                   placeholder="Enter your phone">
+                   placeholder="<fmt:message key="local.activity.phone.placeholder" bundle="${messages}"/>">
         </div>
         <button type="submit" class="btn btn-primary">Apply</button>
         <a href="${mainPath}/main/index" class="btn btn-primary">Main</a>

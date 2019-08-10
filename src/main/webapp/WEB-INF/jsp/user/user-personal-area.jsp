@@ -19,7 +19,14 @@
         </thead>
         <c:forEach var="activity" items="${activitiesSession}" varStatus="loop">
             <tr>
-                <td>${activity.getActivityDto().getName()}</td>
+                <td><c:choose>
+                    <c:when test="${sessionScope.lang != 'uk'}">
+                        ${activity.getActivityDto().getEnglishName()}
+                    </c:when>
+                    <c:otherwise>
+                        ${activity.getActivityDto().getName()}
+                    </c:otherwise>
+                </c:choose>
                 <td>${activity.getTimeSpent()}</td>
             </tr>
         </c:forEach>

@@ -19,6 +19,7 @@ public class ActivityResultSetConverter implements Converter<ResultSet, Activity
         Activity activity = new Activity();
         activity.setId(resultSet.getInt("activity_id"));
         activity.setName(resultSet.getString("activity_name"));
+        activity.setEnglishName(resultSet.getString("activity_english_name"));
         LOGGER.debug("Activity result set is converted!");
         return activity;
     }
