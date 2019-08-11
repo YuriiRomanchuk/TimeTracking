@@ -92,7 +92,6 @@ public class DataSource {
                     queryData.getParameters().accept(entity, ps);
                 }
             }
-
             if (queryData.getQuery().toUpperCase().startsWith("SELECT")) {
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {

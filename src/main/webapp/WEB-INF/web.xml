@@ -21,7 +21,8 @@
         <init-param>
             <param-name>forbiddenPagesUnknown</param-name>
             <param-value>admin-personal-area,user-personal-area,user-personal-area,admin-activity,
-                admin-approval-request-activity,admin-personal-area, user-add-activity-session,user-add-request-activity,
+                admin-approval-request-activity,admin-personal-area,
+                user-add-activity-session,user-add-request-activity,
                 user-delete-request-activity,user-history-request,user-personal-area
             </param-value>
         </init-param>
@@ -36,7 +37,8 @@
             <param-name>allPages</param-name>
             <param-value>
                 index,admin-personal-area,login,registration-form,user-personal-area,admin-activity,
-                admin-approval-request-activity,admin-personal-area, user-add-activity-session,user-add-request-activity,
+                admin-approval-request-activity,admin-personal-area,
+                user-add-activity-session,user-add-request-activity,
                 user-delete-request-activity,user-history-request,user-personal-area
             </param-value>
         </init-param>
@@ -45,4 +47,9 @@
         <filter-name>ForbiddenUserPageFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <listener>
+        <listener-class>
+            com.time.tracking.servlet.listener.SessionListener
+        </listener-class>
+    </listener>
 </web-app>

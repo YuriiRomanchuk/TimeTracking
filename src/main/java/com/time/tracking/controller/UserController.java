@@ -40,6 +40,7 @@ public class UserController implements Controller {
 
     @GetMessage("/registration-form")
     public View showRegistrationPage() {
+        LOGGER.debug("show registration form");
         return new ViewModel("WEB-INF/jsp/registration-form.jsp");
     }
 
@@ -50,7 +51,7 @@ public class UserController implements Controller {
 
     @GetMessage("/logout")
     public View logout() {
-        /*  LOGGER.debug("User logout");*/
+        LOGGER.debug("User logout");
         return new RedirectView(new ViewModel("index"));
     }
 
@@ -62,6 +63,7 @@ public class UserController implements Controller {
             LOGGER.debug("User login");
         } catch (ServiceException e) {
             view = receiveViewModel("login", e.getMessage());
+            LOGGER.debug("User is not login" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
         }
         return new RedirectView(view);
     }
@@ -74,6 +76,7 @@ public class UserController implements Controller {
             LOGGER.debug("User create");
         } catch (Exception e) {
             view = receiveViewModel("registration-form", e.getMessage());
+            LOGGER.debug("User is not created" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
         }
         return new RedirectView(view);
     }
@@ -81,15 +84,16 @@ public class UserController implements Controller {
     @GetMessage("/admin-personal-area")
     public View showAdminPersonalArea() {
         View view;
-        /*  try {*/
-        view = new ViewModel("WEB-INF/jsp/admin/admin-personal-area.jsp");
-        /*   view.addParameter("roomsDto", roomService.receiveAllRoomsDto());*/
-        /*LOGGER.debug("show admin personal area");*/
-     /*   } catch (ServiceException e) {
+        try {
+            view = new ViewModel("WEB-INF/jsp/admin/admin-personal-area.jsp");
+            view.addParameter("users", userService.receiveAllUsers());
+            LOGGER.debug("show admin personal area");
+            return view;
+        } catch (ServiceException e) {
             view = receiveViewModel("index", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
-      *//*      LOGGER.debug("Admin personal area is not shown!" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());*//*
-        }*/
-        return view;
+            LOGGER.debug("Admin personal area is not shown!" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+        }
+        return new RedirectView(view);
     }
 
     @GetMessage("/user-personal-area")

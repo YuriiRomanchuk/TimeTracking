@@ -19,8 +19,24 @@ public class UserDao implements GenericDao<User> {
     }
 
     @Override
-    public void insert(User entity) {
+    public void insert(User user) {
+        QueryData data = QueryData.newBuilder()
+                .setQuery(dataSource.receiveQueryText("user.create"))
+                .setEntities(user)
+                .setParameters(ps -> {
+                    ps.setString(1, user.getFirstName());
+                    ps.setString(2, user.getLastName());
+                    ps.setString(3, user.getMiddleName());
+                    ps.setString(4, user.getLogin());
+                    ps.setString(5, user.getPassword());
+                    ps.setString(6, user.getEmail());
+                    ps.setString(7, user.getPhone());
+                    ps.setString(8, String.valueOf(user.getRole()));
+                })
+                .setResultProcessor(r -> user.setId(r.getInt(1)))
+                .build();
 
+        dataSource.implementQueries(data);
     }
 
     @Override
@@ -58,25 +74,5 @@ public class UserDao implements GenericDao<User> {
                 .build());
 
         return dataSource.receiveFirstRecord(users);
-    }
-
-    public void createUser(User user) {
-        QueryData data = QueryData.newBuilder()
-                .setQuery(dataSource.receiveQueryText("user.create"))
-                .setEntities(user)
-                .setParameters(ps -> {
-                    ps.setString(1, user.getFirstName());
-                    ps.setString(2, user.getLastName());
-                    ps.setString(3, user.getMiddleName());
-                    ps.setString(4, user.getLogin());
-                    ps.setString(5, user.getPassword());
-                    ps.setString(6, user.getEmail());
-                    ps.setString(7, user.getPhone());
-                    ps.setString(8, String.valueOf(user.getRole()));
-                })
-                .setResultProcessor(r -> user.setId(r.getInt(1)))
-                .build();
-
-        dataSource.implementQueries(data);
     }
 }

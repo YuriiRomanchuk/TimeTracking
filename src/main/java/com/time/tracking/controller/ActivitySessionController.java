@@ -12,10 +12,13 @@ import com.time.tracking.validator.AddActivitySessionValidator;
 import com.time.tracking.view.RedirectView;
 import com.time.tracking.view.View;
 import com.time.tracking.view.ViewModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @InitializeComponent
 public class ActivitySessionController implements Controller {
 
+    private static final Logger LOGGER = LogManager.getLogger(ActivitySessionController.class);
     private final ActivitySessionService requestActivityService;
     private final ActivityService activityService;
     private final AddActivitySessionValidator addActivitySessionValidator;
@@ -34,9 +37,11 @@ public class ActivitySessionController implements Controller {
         try {
             view = new ViewModel("WEB-INF/jsp/user/user-add-activity-session.jsp");
             view.addParameter("activities", activityService.receiveFreeActivitiesForUser(userDto.getId()));
+            LOGGER.debug("Activity session opened");
             return view;
         } catch (ServiceException e) {
             view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+            LOGGER.debug("Activity session is not shown" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
         }
         return new RedirectView(view);
     }
@@ -48,12 +53,14 @@ public class ActivitySessionController implements Controller {
         if (!invalidateFields.isEmpty()) {
             view = receiveViewModel("user-add-activity-session", invalidateFields);
             view.addParameter("activityDto", activitySessionDto);
+            LOGGER.debug("Activity session added");
         } else {
             try {
                 requestActivityService.addActivitySession(activitySessionDto);
                 view = receiveViewModel("user-personal-area", "Activity session created!");
             } catch (ServiceException e) {
                 view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+                LOGGER.debug("Activity session is not added" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
             }
         }
         return new RedirectView(view);

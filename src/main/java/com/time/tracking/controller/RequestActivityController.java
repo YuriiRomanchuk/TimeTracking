@@ -12,12 +12,15 @@ import com.time.tracking.service.RequestActivityService;
 import com.time.tracking.view.RedirectView;
 import com.time.tracking.view.View;
 import com.time.tracking.view.ViewModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
 
 @InitializeComponent
 public class RequestActivityController implements Controller {
 
+    private static final Logger LOGGER = LogManager.getLogger(RequestActivityController.class);
     private final RequestActivityService requestActivityService;
     private final ActivityService activityService;
 
@@ -32,16 +35,18 @@ public class RequestActivityController implements Controller {
         try {
             view = new ViewModel("WEB-INF/jsp/user/user-add-request-activity.jsp");
             view.addParameter("activities", activityService.receiveFreeActivitiesForUser(userDto.getId()));
+            LOGGER.debug("request activity opened");
             return view;
         } catch (ServiceException e) {
             view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+            LOGGER.debug("Request activity is not opened" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
         }
         return new RedirectView(view);
     }
 
     @PostMessage("/user-add-request-activity")
     public View addRequestActivity(RequestActivityDto requestActivityDto) {
-         return new RedirectView(createRequestActivity(requestActivityDto));
+        return new RedirectView(createRequestActivity(requestActivityDto));
     }
 
     @GetMessage("/user-delete-request-activity")
@@ -103,8 +108,10 @@ public class RequestActivityController implements Controller {
         try {
             requestActivityService.addRequestActivity(requestActivityDto);
             view = receiveViewModel("user-personal-area", "Request activity created!");
+            LOGGER.debug("request activity added");
         } catch (ServiceException e) {
             view = receiveViewModel("user-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+            LOGGER.debug("request activity is not added" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
         }
         return view;
     }
@@ -114,8 +121,10 @@ public class RequestActivityController implements Controller {
         try {
             requestActivityService.changeRequestRoomStatus(requestActivityId, requestStatus, new Date());
             view = new ViewModel("admin-approval-request-activity");
+            LOGGER.debug("request activity status changed");
         } catch (ServiceException e) {
             view = receiveViewModel("admin-personal-area", e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
+            LOGGER.debug("request activity is not changed" + e.getCause() == null ? e.getMessage() : e.getCause().getMessage());
         }
         return view;
     }
