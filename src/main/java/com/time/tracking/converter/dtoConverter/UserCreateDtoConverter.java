@@ -14,7 +14,7 @@ public class UserCreateDtoConverter implements Converter<HttpServletRequest, Use
     private static final Logger LOGGER = LogManager.getLogger(UserCreateDtoConverter.class);
 
     @Override
-    public UserCreateDto convert(HttpServletRequest request) throws Exception {
+    public UserCreateDto convert(HttpServletRequest request) {
         UserCreateDto userCreateDto = new UserCreateDto();
         userCreateDto.setLogin(request.getParameter("login"));
         userCreateDto.setPassword(request.getParameter("password"));

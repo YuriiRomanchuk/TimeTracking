@@ -16,19 +16,7 @@ public class UserDtoConverter implements Converter<HttpServletRequest, UserDto> 
     @Override
     public UserDto convert(HttpServletRequest request) {
         UserDto userDto = new UserDto();
-        userDto.setId((Integer) request.getSession().getAttribute("user_id") );
-        userDto.setLogin(request.getParameter("login"));
-        userDto.setFirstName(request.getParameter("firstName"));
-        userDto.setLastName(request.getParameter("lastName"));
-        userDto.setEmail(request.getParameter("email"));
-        userDto.setPhone(request.getParameter("phone"));
-        LOGGER.debug("Usr dto is converted");
-        return userDto;
-
-    }
-
-/*    private UserDto convertFullRequest(HttpServletRequest request) {
-        UserDto userDto = new UserDto();
+        userDto.setId((Integer) request.getSession().getAttribute("user_id"));
         userDto.setLogin(request.getParameter("login"));
         userDto.setFirstName(request.getParameter("firstName"));
         userDto.setLastName(request.getParameter("lastName"));
@@ -37,18 +25,4 @@ public class UserDtoConverter implements Converter<HttpServletRequest, UserDto> 
         LOGGER.debug("Usr dto is converted");
         return userDto;
     }
-
-    public UserDto convertFromRequestForUserId(HttpServletRequest request) {
-        int userId = (Integer) request.getSession().getAttribute("user_id");
-        LOGGER.debug("User dto is converted from id!");
-        return convertByUserId(userId);
-    }
-
-    private UserDto convertByUserId(int userId) {
-        UserDto userDto = new UserDto();
-        userDto.setId(userId);
-        LOGGER.debug("User dto is converted from id!");
-        return userDto;
-    }*/
-
 }
