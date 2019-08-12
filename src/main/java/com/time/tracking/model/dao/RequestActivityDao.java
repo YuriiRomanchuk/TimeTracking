@@ -8,6 +8,7 @@ import com.time.tracking.model.enums.RequestStatus;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @InitializeComponent
 public class RequestActivityDao implements GenericDao<RequestActivity> {
@@ -89,5 +90,21 @@ public class RequestActivityDao implements GenericDao<RequestActivity> {
                 })
                 .setConverter(requestActivityResultSetConverter::convert)
                 .build());
+    }
+
+    public Optional<RequestActivity> findRequestActivityByStatusByActionByUser(RequestActivity requestActivity) {
+        List<RequestActivity> requestsActivity = dataSource.implementQueries(QueryData.newBuilder()
+                .setQuery(dataSource.receiveQueryText("request.activity.find.by.user.id.by.status.by.action"))
+                .setEntities(requestActivity)
+                .setParameters(ps -> {
+                    ps.setInt(1, requestActivity.getUser().getId());
+                    ps.setString(2, requestActivity.getRequestAction().toString());
+                    ps.setString(3, requestActivity.getRequestStatus().toString());
+                    ps.setInt(4, requestActivity.getActivity().getId());
+                })
+                .setConverter(requestActivityResultSetConverter::convert)
+                .build());
+
+        return dataSource.receiveFirstRecord(requestsActivity);
     }
 }

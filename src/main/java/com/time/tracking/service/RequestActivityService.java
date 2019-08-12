@@ -32,7 +32,11 @@ public class RequestActivityService {
     public void addRequestActivity(RequestActivityDto requestActivityDto) throws ServiceException {
         try {
             RequestActivity requestActivity = requestActivityConverter.convert(requestActivityDto);
-            requestActivityDao.insert(requestActivity);
+            if (!requestActivityDao.findRequestActivityByStatusByActionByUser(requestActivity).isPresent()) {
+                requestActivityDao.insert(requestActivity);
+            } else {
+                throw new ServiceException("The request have already been distributed for this activity.");
+            }
         } catch (Exception e) {
             throw new ServiceException("Request activity create failed", e);
         }

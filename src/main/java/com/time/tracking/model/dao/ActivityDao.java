@@ -24,6 +24,7 @@ public class ActivityDao implements GenericDao<Activity> {
                 .setEntities(activity)
                 .setParameters(ps -> {
                     ps.setString(1, activity.getName());
+                    ps.setString(2, activity.getEnglishName());
                 })
                 .setResultProcessor(r -> activity.setId(r.getInt(1)))
                 .build();

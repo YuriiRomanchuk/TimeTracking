@@ -11,7 +11,6 @@
 <c:set var="dataTableName" value="user-personal-area" scope="page"/>
 
 <tag:page showBar="true" dataTable="user-history-request" title="${pageScope.myVar}">
-    <h1 class="text-center">${sessionScope.lang != 'uk'}</h1>
     <table id="${dataTableName}" class="table table-striped">
         <thead>
         <tr>

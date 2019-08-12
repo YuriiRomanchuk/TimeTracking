@@ -36,7 +36,7 @@ public class ActivitySessionController implements Controller {
         View view;
         try {
             view = new ViewModel("WEB-INF/jsp/user/user-add-activity-session.jsp");
-            view.addParameter("activities", activityService.receiveFreeActivitiesForUser(userDto.getId()));
+            view.addParameter("activities", activityService.receiveBusyActivitiesForUser(userDto.getId()));
             LOGGER.debug("Activity session opened");
             return view;
         } catch (ServiceException e) {
